@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TestAPP</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Browse</string>
+    <string name="title_dashboard">Search</string>
+    <string name="title_notifications">Profile</string>
     <string name="edit_message">Enter your login info</string>
     <string name="button_login">Login</string>
     <string name="button_password">Password</string>
