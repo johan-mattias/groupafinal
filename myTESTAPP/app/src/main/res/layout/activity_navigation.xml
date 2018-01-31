@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/explanation"
         android:layout_above="@+id/navigation"
-        tools:context="mobi.garden.bottomnavigationtest.HomeActivity"
+        tools:context="se.thorsell.testapp.MainActivity"
         >
 
         <LinearLayout
