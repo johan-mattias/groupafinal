@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import se.thorsell.testapp.R;
+import se.thorsell.catdex.R;
 
 public class NewCatActivity extends Activity {
 
@@ -31,7 +31,7 @@ public class NewCatActivity extends Activity {
     EditText inputDesc;
 
     // url to create new product
-    private static String url_create_cat = "https://178.62.50.61/android_connect/create_cat.php";
+    private static String url_create_cat = "http://178.62.50.61/android_connect/create_cat.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -53,15 +53,15 @@ public class NewCatActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // creating new product in background thread
-                new CreateNewProduct().execute();
+                new CreateNewCat().execute();
             }
         });
     }
 
     /**
-     * Background Async Task to Create new product
+     * Background Async Task to Create new cat
      * */
-    class CreateNewProduct extends AsyncTask<String, String, String> {
+    class CreateNewCat extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -70,25 +70,21 @@ public class NewCatActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(NewCatActivity.this);
-            pDialog.setMessage("Creating Product..");
+            pDialog.setMessage("Creating Cat..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
         }
 
         /**
-         * Creating product
+         * Creating cat
          * */
         protected String doInBackground(String... args) {
             String name = inputName.getText().toString();
-            String price = inputPrice.getText().toString();
-            String description = inputDesc.getText().toString();
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("name", name));
-            params.add(new BasicNameValuePair("price", price));
-            params.add(new BasicNameValuePair("description", description));
 
             // getting JSON Object
             // Note that create product url accepts POST method

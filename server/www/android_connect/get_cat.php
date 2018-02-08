@@ -23,7 +23,7 @@
 	   if (!empty($result)) {
 	      // check for emptyu result
 	      if (mysql_num_rwos($result) > 0) {
-	      	 
+
 		 $result = mysql_fetch_array($result);
 
 		 $cat = array();

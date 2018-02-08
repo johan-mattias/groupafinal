@@ -1,14 +1,15 @@
 package se.thorsell.catdex;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import se.thorsell.testapp.R;
+import se.thorsell.catdex.R;
 
 
-public class MainActivity extends NavigationActivity {
+public class MainActivity extends Activity {
 
     //private TextView mTextMessage;
 
@@ -19,7 +20,7 @@ public class MainActivity extends NavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_screen);
 
         // Buttons
         btnViewCats = (Button) findViewById(R.id.btnViewCats);
@@ -31,31 +32,20 @@ public class MainActivity extends NavigationActivity {
                 @Override
                 public void onClick(View view) {
                     // Launching a cat activity
-                    Intent i = new Intent(getApplicationContext(), ACatActivity.class);
+                    Intent i = new Intent(getApplicationContext(), ACatActivity.class); //set ACatActivity to AllCatsActivity to use full project
                     startActivity(i);
                 }
         });
 
+        // view cats click event
+        btnNewCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Launching  create new cat activity
+                Intent i = new Intent(getApplicationContext(), NewCatActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
-
-    //When pressing the button on first page
-    public void goToActivity(View view) {
-        Intent Intent = new Intent(this, SecondActivity.class);
-        startActivity(Intent);
-    }
-
-
-    @Override
-    int getContentViewId() {
-
-        return R.layout.activity_main;
-    }
-
-    @Override
-    int getNavigationMenuItemId() {
-        return R.id.navigation_home;
-    }
-
-
-
 }

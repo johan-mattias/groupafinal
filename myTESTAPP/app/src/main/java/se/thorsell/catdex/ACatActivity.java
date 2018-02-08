@@ -1,32 +1,33 @@
 package se.thorsell.catdex;
 
- import java.util.ArrayList;
- import java.util.HashMap;
- import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
- import org.apache.http.NameValuePair;
+import org.apache.http.NameValuePair;
 
- import org.json.*;
+import org.json.*;
 
- import android.app.ListActivity;
- import android.app.ProgressDialog;
- import android.content.Intent;
- import android.os.AsyncTask;
- import android.os.Bundle;
- import android.util.Log;
- import android.view.View;
- import android.widget.AdapterView;
- import android.widget.AdapterView.OnItemClickListener;
- import android.widget.ListAdapter;
- import android.widget.ListView;
- import android.widget.SimpleAdapter;
- import android.widget.TextView;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
- import se.thorsell.testapp.R;
+import se.thorsell.catdex.R;
 
 
 /**
- * Created by Henrik on 08/02/2018.
+ * Created by Henrik on 08/02/
+ * Based on/stole from guide on: https://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/
  */
 
 public class ACatActivity extends ListActivity{
@@ -40,16 +41,14 @@ public class ACatActivity extends ListActivity{
     ArrayList<HashMap<String, String>> catList;
 
     // url to get all products list
-    private static String url_all_cats = "http://178.62.50.61/android_connect/get_cat.php";
+    private static String url_all_cats = "http://178.62.50.61/android_connect/test.php";
 
     // JSON node names
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_CATS = "cats";
     private static final String TAG_CID = "cid";
     private static final String TAG_NAME = "name";
 
     // cats JSONArray
-    JSONArray cats = null;
+    String cats = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,35 +66,6 @@ public class ACatActivity extends ListActivity{
 
         // on selecting single cat
         // launching edit cat product screen
-        lv.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // getting values from selected list item
-                String cid = ((TextView) view.findViewById(R.id.cid)).getText().toString();
-
-                // start new intent
-                Intent in = new Intent(getApplicationContext(),
-                           EditCatActivity.class);
-                // sending cid to next activity
-                in.putExtra(TAG_CID, cid);
-
-                // starting new activity and expecting some response back
-                startActivityForResult(in, 100);
-            }
-        });
-    }
-    // response from edit cat activity
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        // if result code 100
-        if (resultCode == 100) {
-            // if result code 100 recieved means user edited/deleted cat
-            // reload this screen again
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
-        }
     }
 
     // background async task to load all cats by making http request
@@ -117,67 +87,50 @@ public class ACatActivity extends ListActivity{
 
             // getting JSON string from url
             JSONObject json = jParser.makeHttpRequest(url_all_cats, "GET", params);
-
-            // check your log catalogue for JSON response
-            Log.d("All cats: ", json.toString());
-
             try {
-                // checking for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
+                // check your log catalogue for JSON response
+                Log.d("All cats: ", json.toString());
+                cats = json.getString("name");
+                Log.d("The cat name: ", cats);
 
-                if (success == 1) {
-                    // cat found
-                    // getting array of cats
-                    cats = json.getJSONArray(TAG_CATS);
+                // store json cat name in a variable with a dummy id
+                String id = "1";
+                String name = cats;
 
-                    // looping through all cats
-                    for (int i = 0; i < cats.length(); i++) {
-                        JSONObject c = cats.getJSONObject(i);
+                // create a new HashMap
+                HashMap<String, String> map = new HashMap<String, String>();
 
-                        // storing each json object in variable
-                        String id = c.getString(TAG_CID);
-                        String name = c.getString(TAG_NAME);
+                // add the cat to the HashMap
+                map.put(TAG_CID, id);
+                map.put(TAG_NAME, cats);
 
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
+                // add HashMap to the ArrayList
+                catList.add(map);
 
-                        // adding each child node to a HashMap key=>value
-                        map.put(TAG_CID, id);
-                        map.put(TAG_NAME, name);
-
-                        // adding hashlist to ArrayList
-                        catList.add(map);
-                    }
-                } else {
-                    // no cats found
-                    // launch add new cat activity
-                    Intent i = new Intent(getApplicationContext(), NewCatActivity.class);
-                    // closing all previous activities
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
             } catch (JSONException e) {
                 e.printStackTrace();
-            } return (null);
+            }return (null);
         }
-    }
 
-    // after completing background task dismiss the progress dialog
-    protected void onPostExecute(String file_url) {
-        // dismiss the dialog after getting all products
-        pDialog.dismiss();
-        //updating UI from background thread
-        runOnUiThread(new Runnable() {
-            public void run() {
-                // updating parsed JSON data into ListView
-                ListAdapter adapter = new SimpleAdapter(
-                        ACatActivity.this, catList, R.layout.list_item,
-                        new String[] { TAG_CID, TAG_NAME}, new int[] { R.id.cid, R.id.name}   );
-                // updating list view
-                setListAdapter(adapter);
+        // after completing background task dismiss the progress dialog
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting the cat
+            pDialog.dismiss();
+            //updating UI from background thread
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    // updating parsed JSON data into ListView
+                    ListAdapter adapter = new SimpleAdapter(
+                            ACatActivity.this, catList, R.layout.list_item,
+                            new String[] { TAG_CID, TAG_NAME},
+                            new int[] { R.id.cid, R.id.name });
+                    // updating list view
+                    setListAdapter(adapter);
 
-            }
-                
-    });
+
+                }
+
+            });
+        }
     }
 }

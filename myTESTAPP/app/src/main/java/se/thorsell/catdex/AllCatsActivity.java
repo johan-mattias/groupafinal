@@ -1,7 +1,8 @@
 package se.thorsell.catdex;
 
-/**
+/*
  * Created by Henrik on 08/02/2018.
+ * From: https://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/
  */
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import se.thorsell.testapp.R;
+import se.thorsell.catdex.R;
 
 public class AllCatsActivity extends ListActivity{
     // Progress Dialog
@@ -39,7 +40,7 @@ public class AllCatsActivity extends ListActivity{
     ArrayList<HashMap<String, String>> catList;
 
     // url to get all products list
-    private static String url_all_cats = "https://178.62.50.61/android_connect/get_all_cats.php";
+    private static String url_all_cats = "http://178.62.50.61/android_connect/get_cat.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -55,16 +56,16 @@ public class AllCatsActivity extends ListActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_cat);
 
-        // Hashmap for ListView
+        // HashMap for ListView
         catList = new ArrayList<HashMap<String, String>>();
 
         // Loading products in Background Thread
         new LoadAllCats().execute();
 
-        // Get listview
+        // Get ListView
         ListView lv = getListView();
 
-        // on seleting single product
+        // on selecting single product
         // launching Edit Product Screen
         lv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -131,7 +132,7 @@ public class AllCatsActivity extends ListActivity{
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_cats, "GET", params);
 
-            // Check your log cat for JSON reponse
+            // Check your log cat for JSON response
             Log.d("All Cats: ", json.toString());
 
             try {
@@ -177,16 +178,16 @@ public class AllCatsActivity extends ListActivity{
             return null;
         }
 
-        /**
+        /*
          * After completing background task Dismiss the progress dialog
-         * **/
+         * */
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
-                    /**
+                    /*
                      * Updating parsed JSON data into ListView
                      * */
                     ListAdapter adapter = new SimpleAdapter(
@@ -194,7 +195,7 @@ public class AllCatsActivity extends ListActivity{
                             R.layout.list_item, new String[] { TAG_CID,
                             TAG_NAME},
                             new int[] { R.id.cid, R.id.name });
-                    // updating listview
+                    // updating ListView
                     setListAdapter(adapter);
                 }
             });

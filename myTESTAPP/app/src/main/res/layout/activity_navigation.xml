@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="se.thorsell.testapp.se.thorsell.catdex.NavigationActivity"
+    tools:context="se.thorsell.catdex.NavigationActivity"
     >
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="This is the Home tab built using RelativeLayout."
+        android:text="@string/this_is_the_home_tab_built_using_relativelayout"
         />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_margin="16dp"
-        android:text="Here 12 scrolled items follow to validate if nothing gets cropped"
+        android:text="@string/here_12_scrolled_items_follow_to_validate_if_nothing_gets_cropped"
         />
 
     <ScrollView
@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/explanation"
         android:layout_above="@+id/navigation"
-        tools:context="se.thorsell.testapp.se.thorsell.catdex.MainActivity"
+        tools:context="se.thorsell.catdex.MainActivity"
         >
 
         <LinearLayout
@@ -44,84 +44,84 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="1"
+                android:text="@string/_1"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="2"
+                android:text="@string/_2"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="3"
+                android:text="@string/_3"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="4"
+                android:text="@string/_4"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="5"
+                android:text="@string/_5"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="6"
+                android:text="@string/_6"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="7"
+                android:text="@string/_7"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="8"
+                android:text="@string/_8"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="9"
+                android:text="@string/_9"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="10"
+                android:text="@string/_10"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="11"
+                android:text="@string/_11"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="12"
+                android:text="@string/_12"
                 />
 
         </LinearLayout>

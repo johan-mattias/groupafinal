@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="se.thorsell.testapp.se.thorsell.catdex.SecondActivity">
+    tools:context="se.thorsell.catdex.SecondActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -51,6 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -70,7 +71,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cat" />
+        app:srcCompat="@drawable/cat"
+        android:contentDescription="@string/a_cat_image"/>
 
 </android.support.constraint.ConstraintLayout>
 
