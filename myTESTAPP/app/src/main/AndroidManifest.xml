@@ -10,9 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- Activity to get cat-information from the db-->
         <activity
             android:name=".ACatActivity"
             android:label="A cat" >
+        </activity>
+        <activity
+            android:name=".EditCatActivity"
+            android:label="Edit cat">
+        </activity>
+        <activity
+            android:name=".AllCatsActivity"
+            android:label="All cats">
+        </activity>
+        <activity
+            android:name=".NewCatActivity"
+            android:label="New cat">
         </activity>
         <activity
             android:name=".MainActivity"
