@@ -1,17 +1,11 @@
-package se.thorsell.testapp;
-
-import android.app.Activity;
+package se.thorsell.catdex;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Button;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import se.thorsell.testapp.R;
 
 
 public class MainActivity extends NavigationActivity {

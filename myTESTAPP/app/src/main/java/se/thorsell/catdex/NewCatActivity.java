@@ -1,4 +1,4 @@
-package se.thorsell.testapp;
+package se.thorsell.catdex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import se.thorsell.testapp.R;
 
 public class NewCatActivity extends Activity {
 

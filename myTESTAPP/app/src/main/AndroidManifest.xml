@@ -12,23 +12,23 @@
 
         <!-- Activity to get cat-information from the db-->
         <activity
-            android:name=".ACatActivity"
+            android:name="se.thorsell.catdex.ACatActivity"
             android:label="A cat" >
         </activity>
         <activity
-            android:name=".EditCatActivity"
+            android:name="se.thorsell.catdex.EditCatActivity"
             android:label="Edit cat">
         </activity>
         <activity
-            android:name=".AllCatsActivity"
+            android:name="se.thorsell.catdex.AllCatsActivity"
             android:label="All cats">
         </activity>
         <activity
-            android:name=".NewCatActivity"
+            android:name="se.thorsell.catdex.NewCatActivity"
             android:label="New cat">
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="se.thorsell.catdex.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,12 +37,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
+            android:name="se.thorsell.catdex.SecondActivity"
             android:label="@string/title_activity_second"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NavigationActivity" />
+        <activity android:name="se.thorsell.catdex.NavigationActivity" />
         <activity
-            android:name=".ScrollingActivity"
+            android:name="se.thorsell.catdex.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

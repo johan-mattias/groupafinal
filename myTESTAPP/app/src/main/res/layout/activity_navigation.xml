@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="se.thorsell.testapp.NavigationActivity"
+    tools:context="se.thorsell.testapp.se.thorsell.catdex.NavigationActivity"
     >
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/explanation"
         android:layout_above="@+id/navigation"
-        tools:context="se.thorsell.testapp.MainActivity"
+        tools:context="se.thorsell.testapp.se.thorsell.catdex.MainActivity"
         >
 
         <LinearLayout

@@ -1,4 +1,4 @@
-package se.thorsell.testapp;
+package se.thorsell.catdex;
 
 import android.app.Activity;
 

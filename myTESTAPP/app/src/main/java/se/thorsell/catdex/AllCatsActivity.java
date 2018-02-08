@@ -1,4 +1,4 @@
-package se.thorsell.testapp;
+package se.thorsell.catdex;
 
 /**
  * Created by Henrik on 08/02/2018.
@@ -26,6 +26,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import se.thorsell.testapp.R;
 
 public class AllCatsActivity extends ListActivity{
     // Progress Dialog

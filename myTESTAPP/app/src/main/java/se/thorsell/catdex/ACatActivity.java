@@ -1,4 +1,4 @@
-package se.thorsell.testapp;
+package se.thorsell.catdex;
 
  import java.util.ArrayList;
  import java.util.HashMap;
@@ -22,6 +22,7 @@ package se.thorsell.testapp;
  import android.widget.SimpleAdapter;
  import android.widget.TextView;
 
+ import se.thorsell.testapp.R;
 
 
 /**

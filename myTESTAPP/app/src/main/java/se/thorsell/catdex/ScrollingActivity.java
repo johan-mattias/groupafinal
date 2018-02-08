@@ -1,4 +1,6 @@
-package se.thorsell.testapp;
+package se.thorsell.catdex;
+
+import se.thorsell.testapp.R;
 
 public class ScrollingActivity extends NavigationActivity {
 
