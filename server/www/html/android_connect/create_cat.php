@@ -1,50 +1,20 @@
 <?php
+// Include the login information stored in the db_config.php file.
+require '../../includes/db_config.php';
 
-/*
- * Following code will create a new product row
- * All product details are read from HTTP Post Request
- * From: https://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/
- */
-
-// array for JSON response
-$response = array();
-
-// check for required fields
-if (isset($_POST['name'])) {
-
-    $name = $_POST['name'];
-
-    // include db connect class
-    require_once __DIR__ . '/db_connect.php';
-
-    // connecting to db
-    $db = new DB_CONNECT();
-
-    // mysql inserting a new row
-    $result = mysql_query("INSERT INTO cats(name) VALUES('$name')");
-
-    // check if row inserted or not
-    if ($result) {  
-        // successfully inserted into database
-        $response["success"] = 1;
-        $response["message"] = "Cat successfully created.";
-
-        // echoing JSON response
-        echo json_encode($response);
-    } else {
-        // failed to insert row
-        $response["success"] = 0;
-        $response["message"] = "Oops! An error occurred.";
-
-        // echoing JSON response
-        echo json_encode($response);
-    }
-} else {
-    // required field is missing
-    $response["success"] = 0;
-    $response["message"] = "Required field(s) is missing";
-
-    // echoing JSON response
-    echo json_encode($response);
+// Create connecton using required DEFINEs
+$conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+//echo file_get_contents('php://input');
+$data = json_decode(file_get_contents('php://input'), true);
+echo $data['name'];
+
+// Insert the provided name of the cat into the database.
+mysqli_query($conn, "INSERT INTO cats (name) VALUES ('".$data['name']."')") or die(mysqli_error($conn));
+
+//mysql_close($con);
+//$conn->close();
 ?>
