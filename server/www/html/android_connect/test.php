@@ -17,9 +17,6 @@ $result = $conn->query("SELECT name FROM cats LIMIT 1")
 
 // try to echo the contents
 $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
-//printf ("%s",$row["name"]);
 
 echo json_encode($row);
-//return $row["name"];
-
 ?>
