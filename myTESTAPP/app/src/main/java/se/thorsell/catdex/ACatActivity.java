@@ -122,7 +122,7 @@ public class ACatActivity extends ListActivity{
                     // updating parsed JSON data into ListView
                     ListAdapter adapter = new SimpleAdapter(
                             ACatActivity.this, catList, R.layout.list_item,
-                            new String[] { TAG_CID, TAG_NAME},
+                            new String[] { TAG_CID, TAG_NAME},  
                             new int[] { R.id.cid, R.id.name });
                     // updating list view
                     setListAdapter(adapter);

@@ -1,11 +1,9 @@
 <?php
-$servername = "178.62.50.61";
-$username = "catdex";
-$password = "henrik_login";
-$database = "catdex";
+// Include the login information stored in the db_config.php file.
+require '../../includes/db_config.php';
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+// Create connecton using required DEFINEs
+$conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 // Check connection
 if ($conn->connect_error) {

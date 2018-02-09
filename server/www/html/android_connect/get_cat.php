@@ -8,7 +8,7 @@
 	$response = array();
 
 	// include db connect class.
-	require_once __DIR__ . '/db_connect.php';
+	require '../../includes/db_connect.php';
 
 	// connect to db.
 	$db = new DB_CONNECT();

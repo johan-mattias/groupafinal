@@ -22,10 +22,10 @@ class DB_CONNECT {
      */
     function connect() {
         // import database connection variables
-        require_once __DIR__ . '/db_config.php';
+        require_once '/db_config.php';
 
         // Connecting to mysql database
-        $con = mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
+        $con = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
         if ($con->connect_error) {
             die("Connection failed: " . $con->connect_error);
         }
