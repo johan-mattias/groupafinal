@@ -1,4 +1,7 @@
 <?php
+// This code opens a connection to the database, gets all the cat records from
+// the database, packages them into a JSON object and returns it.
+
 // Include the login information stored in the db_config.php file.
 require '../../includes/db_config.php';
 
@@ -11,6 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Read each cat record, create an array, encode it as JSON and echo it.
+// Adapted code from a StackOverflow question, which URL we've lost.
 $myArray = array();
   if ($result = $conn->query("SELECT * FROM cats")) {
     $tempArray = array();

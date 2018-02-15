@@ -1,6 +1,6 @@
 <?php
-// This code opens a connection to the database, querys the database for one cat
-// record, packges it into a JSON object and returns it.
+// This code opens a connection to the database, gets all cat records and their
+// corresponding tags, encodes it into JSON and returns it.
 
 // Include the login information stored in the db_config.php file.
 require '../../includes/db_config.php';
@@ -13,10 +13,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Read a cat record, create an array, encode it as JSON and echo it.
-// Adapted code from a StackOverflow question, which URL we've lost.
+
+// Query the DB for all cat records and their corresponding tags, encode and return.
 $myArray = array();
-  if ($result = $conn->query("SELECT * FROM cats LIMIT 1")) {
+  if ($result = $conn->query("SELECT cats.name, tags.tag FROM cats JOIN catsTagsMap ON cats.id = catsTagsMap.cat_id JOIN tags ON tags.id = catsTagsMap.tag_id;
+")) {
     $tempArray = array();
       while($row = $result->fetch_object()) {
         $tempArray = $row;
