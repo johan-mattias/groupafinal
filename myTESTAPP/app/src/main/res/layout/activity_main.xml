@@ -20,4 +20,11 @@
         android:text="@string/add_new_cat"
         android:layout_marginTop="25dip"/>
 
+    <!-- Button to search for cats -->
+    <Button android:id="@+id/btnSearchCat"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Search cats."
+        android:layout_marginTop="25dip"/>
+
 </LinearLayout>
