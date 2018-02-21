@@ -22,7 +22,7 @@ public class SearchActivity extends AppCompatActivity {
 
     ListView SubjectListView;
     ProgressBar progressBarSubject;
-    String ServerURL = "http://178.62.50.61/android_connect/get_all_cats.php";
+    String ServerURL = "http://178.62.50.61/android_connect/get_all_tags.php";
     EditText editText ;
     List<String> listString = new ArrayList<String>();
     ArrayAdapter<String> arrayAdapter ;
@@ -105,7 +105,7 @@ public class SearchActivity extends AppCompatActivity {
                             {
                                 jsonObject = jsonArray.getJSONObject(i);
 
-                                listString.add(jsonObject.getString("name").toString()) ;
+                                listString.add(jsonObject.getString("tag").toString()) ;
 
                             }
                         }
