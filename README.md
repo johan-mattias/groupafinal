@@ -1,6 +1,7 @@
 # catdex
 
-THE BEST CAT-APP EVER 
+THE BEST CAT-APP EVER
+by group 2.
 
 The one and only app for all your cat image needs. 
 The cat-dex app provides you with a plethora of different types of cats in all situations you can imagine. 
@@ -8,19 +9,21 @@ Crowd-sourced material from all the over the world brings you the best cat app e
 
 http://catdex.thorsell.se/
 
-RUN APP IN EMULATOR
+## RUN APP IN EMULATOR
 
-In Android Studio, click the app module in the Project window and then select Run > Run (or click Run  in the toolbar).
+1. Clone the repo.
 
-In the Select Deployment Target window, click Create New Virtual Device.
+2. In Android Studio, click the app module in the Project window and then select Run > Run (or click Run  in the toolbar).
 
-In the Select Hardware screen, select a phone device, such as Pixel, and then click Next.
+3. In the Select Deployment Target window, click Create New Virtual Device.
 
-In the System Image screen, select the version with the highest API level. If you don't have that version installed, a Download link is shown, so click that and complete the download.
+4. In the Select Hardware screen, select a phone device, such as Pixel, and then click Next.
 
-Click Next.
+5. In the System Image screen, select the version with the highest API level (If you don't have that version installed, a Download link is shown, so click that and complete the download).
 
-On the Android Virtual Device (AVD) screen, leave all the settings alone and click Finish.
+6. Click Next.
 
-Back in the Select Deployment Target dialog, select the device you just created and click OK.
+7. On the Android Virtual Device (AVD) screen, use the default settings and click Finish.
+
+8. Back in the Select Deployment Target dialog, select the device you just created and click OK.
 
