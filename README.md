@@ -11,7 +11,7 @@ http://catdex.thorsell.se/
 
 ## RUN APP IN EMULATOR
 
-1. Clone the repo.
+1. Clone the repo and open it in Android Studio.
 
 2. In Android Studio, click the app module in the Project window and then select Run > Run (or click Run  in the toolbar).
 
