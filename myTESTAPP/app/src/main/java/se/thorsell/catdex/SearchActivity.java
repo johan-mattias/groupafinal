@@ -24,7 +24,8 @@ import org.json.JSONArray;
         import android.os.Bundle;
         import android.text.Editable;
         import android.text.TextWatcher;
-        import android.view.View;
+import android.util.Log;
+import android.view.View;
         import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
         import android.widget.EditText;
@@ -158,49 +159,57 @@ public class SearchActivity extends AppCompatActivity {
 
                 List<String> catNames = new ArrayList<String>();
 
-                if (ResultHolder != null) {
-                    JSONArray jsonArraySecond = null;
+                listView = (ListView) findViewById(R.id.listview1);
 
-                    try {
-                        jsonArraySecond = new JSONArray(ResultHolder);
+                listView.setVisibility(View.VISIBLE);
 
-                        JSONObject jsonObjectSecond;
 
-                        for (int i = 0; i < jsonArraySecond.length(); i++) {
-                            jsonObjectSecond = jsonArraySecond.getJSONObject(i);
+                JSONArray jsonArraySecond = null;
 
-                            if (jsonObjectSecond.getString("tag") == selectedItem) {
-                                catNames.add(jsonObjectSecond.getString("name"));
-                            } else {
-                                //inga resultat finns
-                            }
+                try {
+                    jsonArraySecond = new JSONArray(ResultHolder);
 
+                    JSONObject jsonObjectSecond;
+
+                    
+                    for (int i = 0; i < jsonArraySecond.length(); i++) {
+                        jsonObjectSecond = jsonArraySecond.getJSONObject(i);
+
+                        //Check for the corresponding catname to the tag that has been clicked
+                        if (jsonObjectSecond.getString("tag").equals(selectedItem)) {
+                            catNames.add(jsonObjectSecond.getString("name"));
                         }
-
-                        if(catNames != null) {
-                            adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, catNames);
-                            listView.setAdapter(adapter);
-                        }
-                        else{
-                        }
-
-
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
                     }
+                    //catNames.add("Hej");
+                    if (catNames.isEmpty()) {
+                        Log.e("Search filter", "CatNames empty");
+                    } else {
+                        adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, catNames);
+                        if(adapter.getCount()==0) {
+                            Log.e("Search filter", "adapter null");
+                        }
+                        else {
+                            //Remove the searchbar from the view with catnames
+                            editText.setVisibility(View.GONE);
+
+                            //Populate listView with items from adapter (the catNames)
+                            listView.setAdapter(adapter);
+
+                            //Remove the onclicklistener when the catnames are showing
+                            SubjectListView.setOnItemClickListener(null);
+
+                        }
+
+                    }
+
+
+
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
-                else{
-
-                }
-
-                // plocka ut alla catnamn
-                // uppdatera view med catnamn httpservice
-
-
-
-
             });
+
         }
 
 
