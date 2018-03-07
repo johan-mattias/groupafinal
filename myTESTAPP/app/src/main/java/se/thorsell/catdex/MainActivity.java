@@ -29,12 +29,12 @@ public class MainActivity extends Activity {
         // view cats click event
         btnViewCats.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View view) {
-                    // Launching a cat activity
-                    Intent i = new Intent(getApplicationContext(), ACatActivity.class); //set ACatActivity to AllCatsActivity to use full project
-                    startActivity(i);
-                }
+            @Override
+            public void onClick(View view) {
+                // Launching a cat activity
+                Intent i = new Intent(getApplicationContext(), ACatActivity.class); //set ACatActivity to AllCatsActivity to use full project
+                startActivity(i);
+            }
         });
 
         // view cats click event
