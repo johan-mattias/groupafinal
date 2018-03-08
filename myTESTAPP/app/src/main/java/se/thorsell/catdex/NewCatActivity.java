@@ -1,29 +1,18 @@
 package se.thorsell.catdex;
 
-import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-
+import android.util.Base64;
 import android.widget.Toast;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
@@ -36,15 +25,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.provider.MediaStore;
 import android.net.Uri;
-import android.database.Cursor;
-
-
-
-
-
-import se.thorsell.catdex.R;
 
 public class NewCatActivity extends Activity {
 
@@ -52,66 +33,64 @@ public class NewCatActivity extends Activity {
     private ProgressDialog pDialog;
     ProgressDialog prgDialog;
 
-    String encodedString;
-    String imgPath, fileName;
-    Bitmap bitmap;
-
-
-
-    JSONParser jsonParser = new JSONParser();
     EditText inputName;
+    String imageString = "image_bytes";
 
     // url to create new product
     private static String url_create_cat = "http://178.62.50.61/android_connect/create_cat.php";
 
     // variables to load images from gallery
     private static int RESULT_LOAD_IMG = 1;
-    String imgDecodableString;
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
+
+
+    // Takes a bitmap, compresses it to a png with quality setting "100" and returns a Base64encode.
+    public String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+        String encodedString = "temp";
+       try {
+           encodedString = URLEncoder.encode(temp, "UTF-8");
+       } catch (UnsupportedEncodingException e) {
+           e.printStackTrace();
+        }
+        return encodedString;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_cat);
-        setContentView(R.layout.add_cat);
         prgDialog = new ProgressDialog(this);
         prgDialog.setCancelable(false);
-
-
 
         // Edit Text
         inputName = (EditText) findViewById(R.id.inputName);
 
         // Create button
-        Button btnCreateProduct = (Button) findViewById(R.id.btnCreateCat);
-
-        ImageView imgView = (ImageView) findViewById(R.id.imgView);
+        Button btnCreateCat = (Button) findViewById(R.id.btnCreateCat);
 
         // button click event
-        btnCreateProduct.setOnClickListener(new View.OnClickListener() {
+        btnCreateCat.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 // creating new product in background thread
                 new CreateNewCat().execute();
-
-                Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
-                gallery.setType("image/*");
-                startActivityForResult(gallery, RESULT_LOAD_IMG);
             }
         });
     }
 
     public void loadImagefromGallery(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
-        //Intent galleryIntent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
-       // startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
-
         Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
         gallery.setType("image/*");
+
+        // Start the Intent
         startActivityForResult(gallery, RESULT_LOAD_IMG);
     }
 
@@ -155,6 +134,7 @@ public class NewCatActivity extends Activity {
                 // Create the JSON object to be sent, and add the name of the new cat to it.
                 JSONObject jsonParam = new JSONObject();
                 jsonParam.put("name", name);
+                jsonParam.put("image", imageString); // This is the encoded image
                 Log.i("JSON", jsonParam.toString());
 
                 // Create a data output stream and write jsonParam.
@@ -176,8 +156,8 @@ public class NewCatActivity extends Activity {
                 e.printStackTrace();
             }
 
-
             // Move back to main activity.
+            // todo figure out if this should be in the onPostExecute instead. Maybe ask Johan?
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
 
@@ -194,7 +174,6 @@ public class NewCatActivity extends Activity {
             // dismiss the dialog once done
             pDialog.dismiss();
         }
-
     }
 
     @Override
@@ -206,21 +185,32 @@ public class NewCatActivity extends Activity {
 
                 // Get the image from data
                 Uri selectedImage = data.getData();
-                Log.d("uri", selectedImage.toString());
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                // Get the cursor
-                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                cursor.moveToFirst();
-
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imgDecodableString = cursor.getString(columnIndex);
-                cursor.close();
-
+                //File absoluteFilePath = new File(new URI(selectedImage.getPath())); this breaks everything?
+                Log.d("Trams123", "Selected image to string: " + selectedImage.toString());
 
                 // Display the chosen image in the app.
                 ImageView imgView = (ImageView) findViewById(R.id.imgView);
                 imgView.setImageURI(selectedImage);
+
+                Log.d("Trams123", "Data to string: " + data.toString());
+                Log.d("Trams123", "Data get data to string: " + data.getData().toString());
+                Log.d("Trams123", "Selected image get path to string: " + selectedImage.getPath().toString());
+
+                // set bmp as a bitmap of the image that was selected from the gallery.
+                InputStream input;
+                Bitmap bmp = null;
+                try {
+                    input = this.getContentResolver().openInputStream(selectedImage);
+                    bmp = BitmapFactory.decodeStream(input);
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                Log.d("Trams123", "Bitmap: " + bmp);
+
+                // Convert that bitmap into a string.
+                imageString = BitMapToString(bmp);
+
+                Log.d("Trams123", "Image string: " + imageString);
 
             } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
