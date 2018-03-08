@@ -206,6 +206,7 @@ public class NewCatActivity extends Activity {
 
                 // Get the image from data
                 Uri selectedImage = data.getData();
+                Log.d("uri", selectedImage.toString());
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                 // Get the cursor
@@ -216,8 +217,10 @@ public class NewCatActivity extends Activity {
                 imgDecodableString = cursor.getString(columnIndex);
                 cursor.close();
 
+
+                // Display the chosen image in the app.
                 ImageView imgView = (ImageView) findViewById(R.id.imgView);
-                imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+                imgView.setImageURI(selectedImage);
 
             } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();

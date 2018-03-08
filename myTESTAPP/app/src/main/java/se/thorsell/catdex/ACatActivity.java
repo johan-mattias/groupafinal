@@ -100,7 +100,7 @@ public class ACatActivity extends ListActivity{
                 // create a new HashMap
                 HashMap<String, String> map = new HashMap<String, String>();
 
-                // add the cat to the HashMap
+                // add the cat to the HashMapw
                 map.put(TAG_CID, id);
                 map.put(TAG_NAME, cats);
 
