@@ -21,7 +21,7 @@ echo $data['tag'];
 $sql = "SELECT cats.name, tags.tag FROM cats
         JOIN catsTagsMap ON cats.id = catsTagsMap.cat_id
         JOIN tags ON tags.id = catsTagsMap.tag_id
-        WHERE tags.tag = '".$data['tag']."';
+        WHERE tags.tag = '".$data['tag']."'";
 
 // Adapted code from a StackOverflow question, which URL we've lost.
 $myArray = array();

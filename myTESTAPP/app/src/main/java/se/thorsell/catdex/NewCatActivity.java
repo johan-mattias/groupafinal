@@ -12,19 +12,20 @@ import java.net.URLEncoder;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.app.Activity;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 import android.view.View;
-import android.widget.ImageView;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
+
 import android.net.Uri;
 
 public class NewCatActivity extends Activity {
@@ -44,7 +45,6 @@ public class NewCatActivity extends Activity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-
 
     // Takes a bitmap, compresses it to a png with quality setting "100" and returns a Base64encode.
     public String BitMapToString(Bitmap bitmap){
@@ -218,6 +218,5 @@ public class NewCatActivity extends Activity {
         } catch (Exception e) {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
             }
-
     }
 }
