@@ -24,14 +24,14 @@ import android.widget.Toast;
 
 public class SearchActivity extends AppCompatActivity {
 
-    ListView SubjectListView;
-    ListView listView;
-    ProgressBar progressBarSubject;
-    String ServerURL = "http://178.62.50.61/android_connect/get_catsTagsMap.php";
-    EditText editText;
-    List<String> listStringTag = new ArrayList<String>();
-    ArrayAdapter<String> arrayAdapter;
-    ArrayAdapter<String> adapter;
+    private ListView SubjectListView;
+    private ListView listView;
+    private ProgressBar progressBarSubject;
+    private final String ServerURL = "http://178.62.50.61/android_connect/get_catsTagsMap.php";
+    private EditText editText;
+    private final List<String> listStringTag = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +61,12 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private class GetHttpResponse extends AsyncTask<Void, Void, Void> {
-        public Context context;
+        public final Context context;
 
         String ResultHolder;
 
         public GetHttpResponse(Context context) {
             this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
         }
 
         @Override
@@ -115,7 +110,7 @@ public class SearchActivity extends AppCompatActivity {
             SubjectListView.setVisibility(View.VISIBLE);
 
             // Create a ArrayAdapter from List
-            arrayAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, listStringTag);
+            arrayAdapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, listStringTag);
 
             // Populate ListView with items from ArrayAdapter
             SubjectListView.setAdapter(arrayAdapter);
@@ -125,7 +120,7 @@ public class SearchActivity extends AppCompatActivity {
                 // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
 
-                List<String> catNames = new ArrayList<String>();
+                List<String> catNames = new ArrayList<>();
 
                 listView = findViewById(R.id.listview1);
 
@@ -149,7 +144,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (catNames.isEmpty()) {
                         Log.e("Search filter", "CatNames empty");
                     } else {
-                        adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, catNames);
+                        adapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, catNames);
                         if(adapter.getCount()==0) {
                             Log.e("Search filter", "adapter null");
                         }

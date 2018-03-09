@@ -1,11 +1,5 @@
 package se.thorsell.catdex;
 
-/**
- * Created by moamarklund on 2018-02-09.
- *
- */
-
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -28,18 +22,19 @@ import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class HttpServicesClass {
-    public int responseCode;
+class HttpServicesClass {
+    private int responseCode;
 
-    public String message;
+    private String message;
 
-    public String response;
+    private String response;
 
-    public ArrayList<NameValuePair> ArrayListParams;
+    private final ArrayList<NameValuePair> ArrayListParams;
 
-    public ArrayList <NameValuePair> headers;
+    private final ArrayList <NameValuePair> headers;
 
-    public String UrlHolder;
+    @SuppressWarnings("CanBeFinal")
+    private String UrlHolder;
 
     public String getResponse()
     {
@@ -60,9 +55,9 @@ public class HttpServicesClass {
     {
         HttpServicesClass.this.UrlHolder = url;
 
-        ArrayListParams = new ArrayList<NameValuePair>();
+        ArrayListParams = new ArrayList<>();
 
-        headers = new ArrayList<NameValuePair>();
+        headers = new ArrayList<>();
     }
 
     public void AddParam(String name, String value)

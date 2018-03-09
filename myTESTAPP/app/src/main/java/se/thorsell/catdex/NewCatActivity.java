@@ -32,22 +32,19 @@ public class NewCatActivity extends Activity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
-    ProgressDialog prgDialog;
+    private ProgressDialog prgDialog;
 
-    EditText inputName;
-    String imageString = "image_bytes";
+    private EditText inputName;
+    private String imageString = "image_bytes";
 
     // url to create new product
-    private static String url_create_cat = "http://178.62.50.61/android_connect/create_cat.php";
+    private static final String url_create_cat = "http://178.62.50.61/android_connect/create_cat.php";
 
     // variables to load images from gallery
-    private static int RESULT_LOAD_IMG = 1;
-
-    // JSON Node names
-    private static final String TAG_SUCCESS = "success";
+    private static final int RESULT_LOAD_IMG = 1;
 
     // Takes a bitmap, compresses it to a png with quality setting "100" and returns a Base64encode.
-    public String BitMapToString(Bitmap bitmap){
+    private String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
         byte[] b = baos.toByteArray();
@@ -75,17 +72,13 @@ public class NewCatActivity extends Activity {
         Button btnCreateCat = findViewById(R.id.btnCreateCat);
 
         // button click event
-        btnCreateCat.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                // creating new product in background thread
-                new CreateNewCat().execute();
-            }
+        btnCreateCat.setOnClickListener(view -> {
+            // creating new product in background thread
+            new CreateNewCat().execute();
         });
     }
 
-    public void loadImageFromGallery(View view) {
+    public void loadImageFromGallery(@SuppressWarnings("unused") View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
         gallery.setType("image/*");
@@ -121,7 +114,7 @@ public class NewCatActivity extends Activity {
             // This try-catch section a modification of: https://stackoverflow.com/a/42780501
             try {
                 // Connect to the server.
-                URL url = new URL("http://178.62.50.61/android_connect/create_cat.php");
+                URL url = new URL(url_create_cat);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 // Set variables for the connection.

@@ -3,7 +3,6 @@ package se.thorsell.catdex;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
@@ -21,25 +20,17 @@ public class MainActivity extends Activity {
         btnNewCat = findViewById(R.id.btnCreateCat);
 
         // view cats click event
-        btnViewCats.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                // Launching a cat activity
-                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivity(i);
-            }
+        btnViewCats.setOnClickListener(view -> {
+            // Launching a cat activity
+            Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(i);
         });
 
         // new cat click event
-        btnNewCat.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                // Launching create new cat activity
-                Intent i = new Intent(getApplicationContext(), NewCatActivity.class);
-                startActivity(i);
-            }
+        btnNewCat.setOnClickListener(view -> {
+            // Launching create new cat activity
+            Intent i = new Intent(getApplicationContext(), NewCatActivity.class);
+            startActivity(i);
         });
 
     }

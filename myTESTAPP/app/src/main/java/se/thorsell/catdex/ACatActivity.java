@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-
 import org.json.*;
 
 import android.app.ListActivity;
@@ -31,12 +29,12 @@ public class ACatActivity extends ListActivity{
     private ProgressDialog pDialog;
 
     // Creating JSON parser object
-    private JSONParser jParser = new JSONParser();
+    private final JSONParser jParser = new JSONParser();
 
     private ArrayList<HashMap<String, String>> catList;
 
     // url to get all products list
-    private static String url_all_cats = "http://178.62.50.61/android_connect/test.php";
+    private static final String url_all_cats = "http://178.62.50.61/android_connect/test.php";
 
     // JSON node names
     private static final String TAG_CID = "cid";
@@ -51,7 +49,7 @@ public class ACatActivity extends ListActivity{
         setContentView(R.layout.a_cat);
 
         // HashMap for list view
-        catList = new ArrayList<HashMap<String, String>>();
+        catList = new ArrayList<>();
 
         // Loading products in background thread
         new LoadAllCats().execute();
@@ -78,7 +76,7 @@ public class ACatActivity extends ListActivity{
         // getting all cats from url
         protected String doInBackground(String... args) {
             // building parameters
-            List<org.apache.http.NameValuePair> params = new ArrayList<NameValuePair>();
+            List<org.apache.http.NameValuePair> params = new ArrayList<>();
 
             // getting JSON string from url
             JSONObject json = jParser.makeHttpRequest(url_all_cats, "GET", params);
@@ -88,15 +86,11 @@ public class ACatActivity extends ListActivity{
                 cats = json.getString("name");
                 Log.d("The cat name: ", cats);
 
-                // store json cat name in a variable with a dummy id
-                String id = "1";
-                String name = cats;
-
                 // create a new HashMap
-                HashMap<String, String> map = new HashMap<String, String>();
+                HashMap<String, String> map = new HashMap<>();
 
-                // add the cat to the HashMap
-                map.put(TAG_CID, id);
+                // add the cat to the HashMap with a dummy ID.
+                map.put(TAG_CID, "1");
                 map.put(TAG_NAME, cats);
 
                 // add HashMap to the ArrayList
@@ -112,19 +106,14 @@ public class ACatActivity extends ListActivity{
             // dismiss the dialog after getting the cat
             pDialog.dismiss();
             //updating UI from background thread
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    // updating parsed JSON data into ListView
-                    ListAdapter adapter = new SimpleAdapter(
-                            ACatActivity.this, catList, R.layout.list_item,
-                            new String[] { TAG_CID, TAG_NAME},
-                            new int[] { R.id.cid, R.id.name });
-                    // updating list view
-                    setListAdapter(adapter);
-
-
-                }
-
+            runOnUiThread(() -> {
+                // updating parsed JSON data into ListView
+                ListAdapter adapter = new SimpleAdapter(
+                        ACatActivity.this, catList, R.layout.list_item,
+                        new String[] { TAG_CID, TAG_NAME},
+                        new int[] { R.id.cid, R.id.name });
+                // updating list view
+                setListAdapter(adapter);
             });
         }
     }

@@ -20,9 +20,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -35,12 +32,12 @@ public class AllCatsActivity extends ListActivity{
     private ProgressDialog pDialog;
 
     // Creating JSON Parser object
-    private JSONParser jParser = new JSONParser();
+    private final JSONParser jParser = new JSONParser();
 
     private ArrayList<HashMap<String, String>> catList;
 
     // url to get all products list
-    private static String url_all_cats = "http://178.62.50.61/android_connect/get_cat.php";
+    private static final String url_all_cats = "http://178.62.50.61/android_connect/get_cat.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -57,7 +54,7 @@ public class AllCatsActivity extends ListActivity{
         setContentView(R.layout.a_cat);
 
         // HashMap for ListView
-        catList = new ArrayList<HashMap<String, String>>();
+        catList = new ArrayList<>();
 
         // Loading products in Background Thread
         new LoadAllCats().execute();
@@ -67,24 +64,19 @@ public class AllCatsActivity extends ListActivity{
 
         // on selecting single product
         // launching Edit Product Screen
-        lv.setOnItemClickListener(new OnItemClickListener() {
+        lv.setOnItemClickListener((parent, view, position, id) -> {
+            // getting values from selected ListItem
+            String pid = ((TextView) view.findViewById(R.id.cid)).getText()
+                    .toString();
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.cid)).getText()
-                        .toString();
+            // Starting new intent
+            Intent in = new Intent(getApplicationContext(),
+                    EditCatActivity.class);
+            // sending pid to next activity
+            in.putExtra(TAG_CID, pid);
 
-                // Starting new intent
-                Intent in = new Intent(getApplicationContext(),
-                        EditCatActivity.class);
-                // sending pid to next activity
-                in.putExtra(TAG_CID, pid);
-
-                // starting new activity and expecting some response back
-                startActivityForResult(in, 100);
-            }
+            // starting new activity and expecting some response back
+            startActivityForResult(in, 100);
         });
 
     }
@@ -128,7 +120,7 @@ public class AllCatsActivity extends ListActivity{
          * */
         protected String doInBackground(String... args) {
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_cats, "GET", params);
 
@@ -153,7 +145,7 @@ public class AllCatsActivity extends ListActivity{
                         String name = c.getString(TAG_NAME);
 
                         // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
+                        HashMap<String, String> map = new HashMap<>();
 
                         // adding each child node to HashMap key => value
                         map.put(TAG_CID, id);
@@ -185,19 +177,17 @@ public class AllCatsActivity extends ListActivity{
             // dismiss the dialog after getting all products
             pDialog.dismiss();
             // updating UI from Background Thread
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    /*
-                     * Updating parsed JSON data into ListView
-                     * */
-                    ListAdapter adapter = new SimpleAdapter(
-                            AllCatsActivity.this, catList,
-                            R.layout.list_item, new String[] { TAG_CID,
-                            TAG_NAME},
-                            new int[] { R.id.cid, R.id.name });
-                    // updating ListView
-                    setListAdapter(adapter);
-                }
+            runOnUiThread(() -> {
+                /*
+                 * Updating parsed JSON data into ListView
+                 * */
+                ListAdapter adapter = new SimpleAdapter(
+                        AllCatsActivity.this, catList,
+                        R.layout.list_item, new String[] { TAG_CID,
+                        TAG_NAME},
+                        new int[] { R.id.cid, R.id.name });
+                // updating ListView
+                setListAdapter(adapter);
             });
 
         }

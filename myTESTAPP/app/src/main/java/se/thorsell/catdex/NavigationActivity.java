@@ -12,7 +12,7 @@ import se.thorsell.catdex.R;
 
 public abstract class NavigationActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    protected BottomNavigationView navigationView;
+    private BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public abstract class NavigationActivity extends AppCompatActivity implements Bo
         selectBottomNavigationBarItem(actionId);
     }
 
-    void selectBottomNavigationBarItem(int itemId) {
+    private void selectBottomNavigationBarItem(int itemId) {
         Menu menu = navigationView.getMenu();
         for (int i = 0, size = menu.size(); i < size; i++) {
             MenuItem item = menu.getItem(i);
