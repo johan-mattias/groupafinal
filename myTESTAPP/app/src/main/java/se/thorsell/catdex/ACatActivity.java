@@ -15,8 +15,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import se.thorsell.catdex.R;
-
 
 /**
  * Created by Henrik on 08/02/
@@ -34,11 +32,12 @@ public class ACatActivity extends ListActivity{
     private ArrayList<HashMap<String, String>> catList;
 
     // url to get all products list
-    private static final String url_all_cats = "http://178.62.50.61/android_connect/test.php";
+    private static final String url_a_cat = "http://178.62.50.61/android_connect/get_cat.php";
 
     // JSON node names
     private static final String TAG_CID = "cid";
     private static final String TAG_NAME = "name";
+    private static final String TAG_IMAGE = "image";
 
     // cats JSONArray
     private String cats = null;
@@ -52,7 +51,7 @@ public class ACatActivity extends ListActivity{
         catList = new ArrayList<>();
 
         // Loading products in background thread
-        new LoadAllCats().execute();
+        new LoadACat().execute();
 
         // Get ListView
         ListView lv = getListView();
@@ -61,30 +60,36 @@ public class ACatActivity extends ListActivity{
         // launching edit cat product screen
     }
 
-    // background async task to load all cats by making http request
-    class LoadAllCats extends AsyncTask<String, String, String> {
+    // background async task to load a cats by making http request
+    class LoadACat extends AsyncTask<String, String, String> {
         // before starting background thread show progress dialog
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ACatActivity.this);
-            pDialog.setMessage("Loading cats. Please wait..");
+            pDialog.setMessage("Loading cat. Please wait..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
         }
-        // getting all cats from url
+        // getting cat from url
         protected String doInBackground(String... args) {
             // building parameters
             List<org.apache.http.NameValuePair> params = new ArrayList<>();
 
+            String catImageString;
+
             // getting JSON string from url
-            JSONObject json = jParser.makeHttpRequest(url_all_cats, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url_a_cat, "GET", params);
             try {
                 // check your log catalogue for JSON response
-                Log.d("All cats: ", json.toString());
+                assert json != null;
+                //Log.d("A cat: ", json.toString());
                 cats = json.getString("name");
                 Log.d("The cat name: ", cats);
+
+                // Get cat image string
+                catImageString = json.getString("image");
 
                 // create a new HashMap
                 HashMap<String, String> map = new HashMap<>();
@@ -92,6 +97,7 @@ public class ACatActivity extends ListActivity{
                 // add the cat to the HashMap with a dummy ID.
                 map.put(TAG_CID, "1");
                 map.put(TAG_NAME, cats);
+                map.put(TAG_IMAGE, catImageString);
 
                 // add HashMap to the ArrayList
                 catList.add(map);
