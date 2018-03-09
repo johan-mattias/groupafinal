@@ -1,39 +1,26 @@
 package se.thorsell.catdex;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-        import java.util.List;
+import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
-        import android.content.Context;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.text.Editable;
-        import android.text.TextWatcher;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.EditText;
-        import android.widget.ListView;
-        import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -46,19 +33,13 @@ public class SearchActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     ArrayAdapter<String> adapter;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_search);
-
         SubjectListView = (ListView) findViewById(R.id.listview1);
-
         progressBarSubject = (ProgressBar) findViewById(R.id.progressBar);
-
         editText = (EditText) findViewById(R.id.edittext1);
 
         new GetHttpResponse(SearchActivity.this).execute();
@@ -68,20 +49,15 @@ public class SearchActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 SearchActivity.this.arrayAdapter.getFilter().filter(charSequence);
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
-
     }
 
     private class GetHttpResponse extends AsyncTask<Void, Void, Void> {
@@ -117,13 +93,9 @@ public class SearchActivity extends AppCompatActivity {
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
-
                                 listStringTag.add(jsonObject.getString("tag").toString());
-
-
                             }
                         } catch (JSONException e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }
@@ -131,20 +103,16 @@ public class SearchActivity extends AppCompatActivity {
                     Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result)
+        protected void onPostExecute(Void result) {
 
-        {
             progressBarSubject.setVisibility(View.GONE);
-
             SubjectListView.setVisibility(View.VISIBLE);
-
 
             // Create a ArrayAdapter from List
             arrayAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, listStringTag);
@@ -163,14 +131,11 @@ public class SearchActivity extends AppCompatActivity {
 
                 listView.setVisibility(View.VISIBLE);
 
-
                 JSONArray jsonArraySecond = null;
 
                 try {
                     jsonArraySecond = new JSONArray(ResultHolder);
-
                     JSONObject jsonObjectSecond;
-
                     
                     for (int i = 0; i < jsonArraySecond.length(); i++) {
                         jsonObjectSecond = jsonArraySecond.getJSONObject(i);
@@ -197,24 +162,12 @@ public class SearchActivity extends AppCompatActivity {
 
                             //Remove the onclicklistener when the catnames are showing
                             SubjectListView.setOnItemClickListener(null);
-
                         }
-
                     }
-
-
-
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             });
-
         }
-
-
     }
-
-
-
 }
