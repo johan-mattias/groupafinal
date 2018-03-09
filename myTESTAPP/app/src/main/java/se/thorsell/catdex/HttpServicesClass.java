@@ -2,6 +2,7 @@ package se.thorsell.catdex;
 
 /**
  * Created by moamarklund on 2018-02-09.
+ *
  */
 
 
@@ -76,11 +77,11 @@ public class HttpServicesClass {
 
     public void ExecuteGetRequest() throws Exception
     {
-        String MixParams = "";
+        StringBuilder MixParams = new StringBuilder();
 
         if(!ArrayListParams.isEmpty())
         {
-            MixParams += "?";
+            MixParams.append("?");
 
             for(NameValuePair p : ArrayListParams)
             {
@@ -88,11 +89,11 @@ public class HttpServicesClass {
 
                 if(MixParams.length() > 1)
                 {
-                    MixParams  +=  "&" + paramString;
+                    MixParams.append("&").append(paramString);
                 }
                 else
                 {
-                    MixParams += paramString;
+                    MixParams.append(paramString);
                 }
             }
         }
@@ -168,12 +169,12 @@ public class HttpServicesClass {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        String line = null;
+        String line;
         try
         {
             while ((line = bufferedReader.readLine()) != null)
             {
-                stringBuilder.append(line + "\n");
+                stringBuilder.append(line).append("\n");
             }
         }
         catch (IOException e)

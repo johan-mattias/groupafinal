@@ -119,4 +119,8 @@
     <string name="view_cats">View Cats</string>
     <string name="add_new_cat">Add new cat.</string>
     <string name="_4">4</string>
+    <string name="search_cats">Search cats.</string>
+    <string name="search_here">Search Here</string>
+    <string name="load_image">Load Image</string>
+    <string name="desc">desc</string>
 </resources>

@@ -10,17 +10,12 @@ import org.json.*;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import se.thorsell.catdex.R;
 
@@ -36,9 +31,9 @@ public class ACatActivity extends ListActivity{
     private ProgressDialog pDialog;
 
     // Creating JSON parser object
-    JSONParser jParser = new JSONParser();
+    private JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> catList;
+    private ArrayList<HashMap<String, String>> catList;
 
     // url to get all products list
     private static String url_all_cats = "http://178.62.50.61/android_connect/test.php";
@@ -48,20 +43,20 @@ public class ACatActivity extends ListActivity{
     private static final String TAG_NAME = "name";
 
     // cats JSONArray
-    String cats = null;
+    private String cats = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_cat);
 
-        // Hashmap for list view
+        // HashMap for list view
         catList = new ArrayList<HashMap<String, String>>();
 
         // Loading products in background thread
         new LoadAllCats().execute();
 
-        // Get listview
+        // Get ListView
         ListView lv = getListView();
 
         // on selecting single cat
@@ -100,7 +95,7 @@ public class ACatActivity extends ListActivity{
                 // create a new HashMap
                 HashMap<String, String> map = new HashMap<String, String>();
 
-                // add the cat to the HashMapw
+                // add the cat to the HashMap
                 map.put(TAG_CID, id);
                 map.put(TAG_NAME, cats);
 

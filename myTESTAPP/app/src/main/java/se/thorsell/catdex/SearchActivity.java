@@ -38,9 +38,9 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_search);
-        SubjectListView = (ListView) findViewById(R.id.listview1);
-        progressBarSubject = (ProgressBar) findViewById(R.id.progressBar);
-        editText = (EditText) findViewById(R.id.edittext1);
+        SubjectListView = findViewById(R.id.listview1);
+        progressBarSubject = findViewById(R.id.progressBar);
+        editText = findViewById(R.id.edittext1);
 
         new GetHttpResponse(SearchActivity.this).execute();
 
@@ -84,7 +84,7 @@ public class SearchActivity extends AppCompatActivity {
                     ResultHolder = httpServiceObject.getResponse();
 
                     if (ResultHolder != null) {
-                        JSONArray jsonArray = null;
+                        JSONArray jsonArray;
 
                         try {
                             jsonArray = new JSONArray(ResultHolder);
@@ -93,7 +93,7 @@ public class SearchActivity extends AppCompatActivity {
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
-                                listStringTag.add(jsonObject.getString("tag").toString());
+                                listStringTag.add(jsonObject.getString("tag"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -127,11 +127,11 @@ public class SearchActivity extends AppCompatActivity {
 
                 List<String> catNames = new ArrayList<String>();
 
-                listView = (ListView) findViewById(R.id.listview1);
+                listView = findViewById(R.id.listview1);
 
                 listView.setVisibility(View.VISIBLE);
 
-                JSONArray jsonArraySecond = null;
+                JSONArray jsonArraySecond;
 
                 try {
                     jsonArraySecond = new JSONArray(ResultHolder);
@@ -140,7 +140,7 @@ public class SearchActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArraySecond.length(); i++) {
                         jsonObjectSecond = jsonArraySecond.getJSONObject(i);
 
-                        //Check for the corresponding catname to the tag that has been clicked
+                        //Check for the corresponding cat name to the tag that has been clicked
                         if (jsonObjectSecond.getString("tag").equals(selectedItem)) {
                             catNames.add(jsonObjectSecond.getString("name"));
                         }
@@ -154,13 +154,13 @@ public class SearchActivity extends AppCompatActivity {
                             Log.e("Search filter", "adapter null");
                         }
                         else {
-                            //Remove the searchbar from the view with catnames
+                            //Remove the search bar from the view with cat names
                             editText.setVisibility(View.GONE);
 
                             //Populate listView with items from adapter (the catNames)
                             listView.setAdapter(adapter);
 
-                            //Remove the onclicklistener when the catnames are showing
+                            //Remove the onClickListener when the cat names are showing
                             SubjectListView.setOnItemClickListener(null);
                         }
                     }

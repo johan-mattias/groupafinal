@@ -28,16 +28,16 @@
         <!-- Activity to get cat-information from the db -->
         <activity
             android:name=".ACatActivity"
-            android:label="A cat"></activity>
+            android:label="A cat" />
         <activity
             android:name=".EditCatActivity"
-            android:label="Edit cat"></activity>
+            android:label="Edit cat" />
         <activity
             android:name=".AllCatsActivity"
-            android:label="All cats"></activity>
+            android:label="All cats" />
         <activity
             android:name=".NewCatActivity"
-            android:label="New cat"></activity>
+            android:label="New cat" />
         <activity
             android:name=".SecondActivity"
             android:label="@string/title_activity_second"
@@ -47,7 +47,7 @@
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SearchActivity">
 

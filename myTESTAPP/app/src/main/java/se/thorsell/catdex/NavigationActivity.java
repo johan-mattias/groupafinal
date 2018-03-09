@@ -19,7 +19,7 @@ public abstract class NavigationActivity extends AppCompatActivity implements Bo
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
 
-        navigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
     }
 

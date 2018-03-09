@@ -35,9 +35,9 @@ public class AllCatsActivity extends ListActivity{
     private ProgressDialog pDialog;
 
     // Creating JSON Parser object
-    JSONParser jParser = new JSONParser();
+    private JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> catList;
+    private ArrayList<HashMap<String, String>> catList;
 
     // url to get all products list
     private static String url_all_cats = "http://178.62.50.61/android_connect/get_cat.php";
@@ -49,7 +49,7 @@ public class AllCatsActivity extends ListActivity{
     private static final String TAG_NAME = "name";
 
     // products JSONArray
-    JSONArray cats = null;
+    private JSONArray cats = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

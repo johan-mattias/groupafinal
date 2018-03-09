@@ -69,10 +69,10 @@ public class NewCatActivity extends Activity {
         prgDialog.setCancelable(false);
 
         // Edit Text
-        inputName = (EditText) findViewById(R.id.inputName);
+        inputName = findViewById(R.id.inputName);
 
         // Create button
-        Button btnCreateCat = (Button) findViewById(R.id.btnCreateCat);
+        Button btnCreateCat = findViewById(R.id.btnCreateCat);
 
         // button click event
         btnCreateCat.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +85,7 @@ public class NewCatActivity extends Activity {
         });
     }
 
-    public void loadImagefromGallery(View view) {
+    public void loadImageFromGallery(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
         gallery.setType("image/*");
@@ -186,15 +186,18 @@ public class NewCatActivity extends Activity {
                 // Get the image from data
                 Uri selectedImage = data.getData();
                 //File absoluteFilePath = new File(new URI(selectedImage.getPath())); this breaks everything?
+
+
+                assert selectedImage != null;
                 Log.d("NewCat image", "Selected image to string: " + selectedImage.toString());
 
                 // Display the chosen image in the app.
-                ImageView imgView = (ImageView) findViewById(R.id.imgView);
+                ImageView imgView = findViewById(R.id.imgView);
                 imgView.setImageURI(selectedImage);
 
                 Log.d("NewCat image", "Data to string: " + data.toString());
-                Log.d("NewCat image", "Data get data to string: " + data.getData().toString());
-                Log.d("NewCat image", "Selected image get path to string: " + selectedImage.getPath().toString());
+                Log.d("NewCat image", "Data get data to string: " + data.getData());
+                Log.d("NewCat image", "Selected image get path to string: " + selectedImage.getPath());
 
                 // set bmp as a bitmap of the image that was selected from the gallery.
                 InputStream input;
@@ -202,8 +205,8 @@ public class NewCatActivity extends Activity {
                 try {
                     input = this.getContentResolver().openInputStream(selectedImage);
                     bmp = BitmapFactory.decodeStream(input);
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
                 Log.d("NewCat image", "Bitmap: " + bmp);
 

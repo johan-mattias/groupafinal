@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-    Button btnViewCats;
-    Button btnNewCat;
+    private Button btnViewCats;
+    private Button btnNewCat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +17,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main_screen);
 
         // Buttons
-        btnViewCats = (Button) findViewById(R.id.btnViewCats);
-        btnNewCat = (Button) findViewById(R.id.btnCreateCat);
+        btnViewCats = findViewById(R.id.btnViewCats);
+        btnNewCat = findViewById(R.id.btnCreateCat);
 
         // view cats click event
         btnViewCats.setOnClickListener(new View.OnClickListener() {
