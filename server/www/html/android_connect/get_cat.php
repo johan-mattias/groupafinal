@@ -12,12 +12,13 @@ $conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM cats WHERE name = 'test21'";
+$sql = "SELECT * FROM cats WHERE name = 'carCat'";
+$sqlHighestId = "SELECT * FROM cats ORDER BY id DESC LIMIT 1";
 
 // Read a cat record, create an array, encode it as JSON and echo it.
 // Adapted code from a StackOverflow question, which URL we've lost.
 $myArray = array();
-  if ($result = $conn->query($sql)) {
+  if ($result = $conn->query($sqlHighestId)) {
     $tempArray = array();
       while($row = $result->fetch_object()) {
         $tempArray = $row;

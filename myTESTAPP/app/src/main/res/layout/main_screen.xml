@@ -13,11 +13,17 @@
 	 android:text="@string/view_cats"
 	 android:layout_marginTop="25dip"/>
 
-  <!-- Button to create a new product screen -->
+  <!-- Button to create a new cat screen -->
   <Button android:id="@+id/btnCreateCat"
 	  android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
 	  android:text="@string/add_new_cat"
 	  android:layout_marginTop="25dip"/>
 
+	<!-- Button to view a cat screen -->
+	<Button android:id="@+id/btnViewACat"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/View_a_cat"
+		android:layout_marginTop="25dip"/>
 </LinearLayout>

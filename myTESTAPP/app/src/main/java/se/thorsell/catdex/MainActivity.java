@@ -9,6 +9,7 @@ public class MainActivity extends Activity {
 
     private Button btnViewCats;
     private Button btnNewCat;
+    private Button btnViewACat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class MainActivity extends Activity {
         // Buttons
         btnViewCats = findViewById(R.id.btnViewCats);
         btnNewCat = findViewById(R.id.btnCreateCat);
+        btnViewACat = findViewById(R.id.btnViewACat);
 
         // view cats click event
         btnViewCats.setOnClickListener(view -> {
@@ -33,5 +35,11 @@ public class MainActivity extends Activity {
             startActivity(i);
         });
 
+        // new view a cat click event
+        btnViewACat.setOnClickListener(view -> {
+            // Launching view a cat activity.
+            Intent i = new Intent(getApplicationContext(), ACatActivity.class);
+            startActivity(i);
+        });
     }
 }
