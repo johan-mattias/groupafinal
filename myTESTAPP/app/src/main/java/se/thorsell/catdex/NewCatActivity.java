@@ -163,7 +163,6 @@ public class NewCatActivity extends Activity {
 
             // Closing this screen.
             finish();
-
             return null;
         }
 
@@ -173,6 +172,7 @@ public class NewCatActivity extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once done
             pDialog.dismiss();
+            Toast.makeText(NewCatActivity.this, "Your cat has been added!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -186,15 +186,15 @@ public class NewCatActivity extends Activity {
                 // Get the image from data
                 Uri selectedImage = data.getData();
                 //File absoluteFilePath = new File(new URI(selectedImage.getPath())); this breaks everything?
-                Log.d("Trams123", "Selected image to string: " + selectedImage.toString());
+                Log.d("NewCat image", "Selected image to string: " + selectedImage.toString());
 
                 // Display the chosen image in the app.
                 ImageView imgView = (ImageView) findViewById(R.id.imgView);
                 imgView.setImageURI(selectedImage);
 
-                Log.d("Trams123", "Data to string: " + data.toString());
-                Log.d("Trams123", "Data get data to string: " + data.getData().toString());
-                Log.d("Trams123", "Selected image get path to string: " + selectedImage.getPath().toString());
+                Log.d("NewCat image", "Data to string: " + data.toString());
+                Log.d("NewCat image", "Data get data to string: " + data.getData().toString());
+                Log.d("NewCat image", "Selected image get path to string: " + selectedImage.getPath().toString());
 
                 // set bmp as a bitmap of the image that was selected from the gallery.
                 InputStream input;
@@ -205,12 +205,12 @@ public class NewCatActivity extends Activity {
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 }
-                Log.d("Trams123", "Bitmap: " + bmp);
+                Log.d("NewCat image", "Bitmap: " + bmp);
 
                 // Convert that bitmap into a string.
                 imageString = BitMapToString(bmp);
 
-                Log.d("Trams123", "Image string: " + imageString);
+                Log.d("NewCat image", "Image string: " + imageString);
 
             } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
