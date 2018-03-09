@@ -46,16 +46,9 @@ public class NewCatActivity extends Activity {
     // Takes a bitmap, compresses it to a png with quality setting "100" and returns a Base64encode.
     private String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
         byte[] b = baos.toByteArray();
-        String temp = Base64.encodeToString(b, Base64.DEFAULT);
-        String encodedString = "temp";
-       try {
-           encodedString = URLEncoder.encode(temp, "UTF-8");
-       } catch (UnsupportedEncodingException e) {
-           e.printStackTrace();
-        }
-        return encodedString;
+        return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
     @Override
@@ -178,8 +171,6 @@ public class NewCatActivity extends Activity {
 
                 // Get the image from data
                 Uri selectedImage = data.getData();
-                //File absoluteFilePath = new File(new URI(selectedImage.getPath())); this breaks everything?
-
 
                 assert selectedImage != null;
                 Log.d("NewCat image", "Selected image to string: " + selectedImage.toString());
@@ -205,6 +196,11 @@ public class NewCatActivity extends Activity {
 
                 // Convert that bitmap into a string.
                 imageString = BitMapToString(bmp);
+                if (imageString == null) {
+                    Log.e("NewCat image", "Image string was null!");
+                } else {
+                    Log.d("NewCat image", "imageString not null!");
+                }
 
                 Log.d("NewCat image", "Image string: " + imageString);
 

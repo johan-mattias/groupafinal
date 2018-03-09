@@ -140,7 +140,6 @@ public class SearchActivity extends AppCompatActivity {
                             catNames.add(jsonObjectSecond.getString("name"));
                         }
                     }
-                    //catNames.add("Hej");
                     if (catNames.isEmpty()) {
                         Log.e("Search filter", "CatNames empty");
                     } else {
