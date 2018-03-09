@@ -20,14 +20,30 @@ echo $data['tag'];
 
 // Get the corresponding id of the provided cat. Get the corresponding id of the
 // provided tag. Add the cat and tag id pair to the catsTagsMap table.
-if ($resultCatID = $conn->query("SELECT cats.id FROM `cats` WHERE cats.name = '.$data['name'].'")) {
-  if ($resultTagID = $conn->query("SELECT tags.id FROM `tags`WHERE tags.tag = '.$data['tag'].'")) {
-    $conn->query("INSERT INTO catsTagsMap (cat_id, tag_id) VALUES ('.$resultCatID.', '.$resultTagID.')");
-  }
+$catIDQuery = "SELECT cats.id FROM cats WHERE (cats.name = ".$data['name'].")";
+$tagIDQuery = "SELECT tags.id FROM tags WHERE (tags.tag  = ".$data['tag'].")";
+
+
+$resultCatID = $conn->query($catIDQuery);
+$resultTagID = $conn->query($tagIDQuery);
+
+$catID = "";
+$tagID = "";
+
+$catID = $resultCatID->fetch_row();
+$tagID = $resultTagID->fetch_row();
+
+if ($conn->error) {
+    die($conn->error);
+}
+
+$insert = "INSERT INTO catsTagsMap (cat_id, tag_id) VALUES ('".$catID[0].", ".$tagID[0]."')";
+$conn->query($insert);
+
+if ($conn->error) {
+    die($conn->error);
 }
 
 // Close down.
-$result->close();
 $conn->close();
 ?>
-mysqli_query($conn, "INSERT INTO tags (tag) VALUES ('".$data['tag']."')") or die(mysqli_error($conn));
