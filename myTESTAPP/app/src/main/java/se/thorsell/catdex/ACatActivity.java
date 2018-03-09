@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.json.*;
@@ -123,7 +124,7 @@ public class ACatActivity extends ListActivity{
             }
         Log.d("Data from php: ", data);
 
-        // TODO Fix the HTTPGetCall function so it doens't return with [] enclosing the data.
+        // TODO Fix the HTTPGetCall function so it doesn't return with [] enclosing the data.
         data = data.replace("[","");
         data = data.replace("]","");
         JSONObject obj = null;
@@ -139,7 +140,7 @@ public class ACatActivity extends ListActivity{
             Log.e("JSON_failed", "JSON object creation failed!");
             Log.e("Malformed string", "Could not parse malformed json: \"" + data + "\"");
         }
-        Log.d("ACatActivity", "JSON object: " + obj.toString());
+        Log.d("ACatActivity", "JSON object: " + (obj != null ? obj.toString() : null));
 
         String imageString = "";
         try {
@@ -161,7 +162,7 @@ public class ACatActivity extends ListActivity{
         Log.d("ACatActivity", "Are they equal2? " + (imageString == imageStringHC));
 
         byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
-        Log.d("ACatActivity", "Byte array is: " + decodedString);
+        Log.d("ACatActivity", "Byte array is: " + Arrays.toString(decodedString));
         catImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         Log.d("ACatActivity", "Bitmap is :" + catImage);
 
@@ -179,7 +180,7 @@ public class ACatActivity extends ListActivity{
                 if (imgView != null) {
                     Log.d("ACatActivity", "Img view not null!");
                     if (catImage != null) {
-                        Log.d("ACatActivity", "catImgage not null!");
+                        Log.d("ACatActivity", "catImage not null!");
                         imgView.setImageBitmap(catImage);
                     } else {
                         Log.e("ACatActivity", "catImage null!");
