@@ -1,5 +1,8 @@
 package se.thorsell.catdex;
 
+import android.app.ActionBar;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +16,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -33,6 +40,12 @@ public class SearchActivity extends AppCompatActivity {
     private ArrayAdapter<String> arrayAdapter;
     private ArrayAdapter<String> adapter;
 
+    public GridView gridView;
+
+    // for the grid view
+    ArrayList<Cat> catArray = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +54,8 @@ public class SearchActivity extends AppCompatActivity {
         SubjectListView = findViewById(R.id.listview1);
         progressBarSubject = findViewById(R.id.progressBar);
         editText = findViewById(R.id.edittext1);
+
+        Log.d("SearchActivity", "In on Create, grid view: " + gridView);
 
         new GetHttpResponse(SearchActivity.this).execute();
 
@@ -135,9 +150,19 @@ public class SearchActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArraySecond.length(); i++) {
                         jsonObjectSecond = jsonArraySecond.getJSONObject(i);
 
-                        //Check for the corresponding cat name to the tag that has been clicked
+                        // Check for the corresponding cat name to the tag that has been clicked.
                         if (jsonObjectSecond.getString("tag").equals(selectedItem)) {
                             catNames.add(jsonObjectSecond.getString("name"));
+                            String imageString = jsonObjectSecond.getString("image");
+
+                            // Convert image string to bitmap.
+                            byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
+                            Bitmap catImage = BitmapFactory.decodeByteArray(decodedString, 0,
+                                    decodedString.length);
+
+                            // Add the converted image to the list.
+                            Cat tempCat = new Cat(jsonObjectSecond.getString("name"), catImage);
+                            catArray.add(tempCat);
                         }
                     }
                     if (catNames.isEmpty()) {
@@ -156,6 +181,24 @@ public class SearchActivity extends AppCompatActivity {
 
                             //Remove the onClickListener when the cat names are showing
                             SubjectListView.setOnItemClickListener(null);
+
+                            // Grid view for the cats
+                            setContentView(R.layout.grid);
+                            gridView = findViewById(R.id.gridview);
+
+                            CatsAdapter catsAdapter = new CatsAdapter(getApplicationContext(), catArray);
+                            if (gridView == null) {
+                                Log.e("SearchActivity", "Grid view is null: " + gridView);
+                            } else {
+                                Log.d("SearchActivity", "Grid view isn't null!" + gridView);
+                            }
+
+                            if (catsAdapter == null) {
+                                Log.e("SearchActivity", "cats adapter is null: " + catsAdapter);
+                                } else {
+                                Log.d("SearchActivity", "cats adapter isn't null!: " + catsAdapter);
+                            }
+                            gridView.setAdapter(catsAdapter);
                         }
                     }
                 } catch (JSONException e) {

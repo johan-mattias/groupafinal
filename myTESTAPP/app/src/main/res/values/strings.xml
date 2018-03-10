@@ -116,13 +116,13 @@
     <string name="a_cat_image">A cat image.</string>
     <string name="cat_name">Cat Name</string>
     <string name="create_cat">Create Cat</string>
-    <string name="view_cats">View Cats</string>
-    <string name="add_new_cat">Add new cat.</string>
+    <string name="view_cats">View Cats by Tag</string>
+    <string name="add_new_cat">Add new cat</string>
     <string name="_4">4</string>
     <string name="search_cats">Search cats.</string>
     <string name="search_here">Search Here</string>
     <string name="load_image">Load Image</string>
     <string name="desc">desc</string>
-    <string name="View_a_cat">View a cat</string>
+    <string name="View_a_cat">View the newest image on the server</string>
     <string name="enter_your_cat_tag">Enter your cat tag</string>
 </resources>
