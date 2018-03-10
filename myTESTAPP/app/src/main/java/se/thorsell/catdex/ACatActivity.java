@@ -30,6 +30,7 @@ import android.widget.ListView;
 
 public class ACatActivity extends ListActivity{
 
+    // Image view to display the fetched cat
     public ImageView imgView;
 
     // Progress dialog

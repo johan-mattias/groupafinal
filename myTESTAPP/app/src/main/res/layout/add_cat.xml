@@ -25,6 +25,16 @@
         android:inputType="text"
         android:hint="@string/edit_message"/>
 
+    <!-- Input Tag -->
+    <EditText android:id="@+id/inputTag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:inputType="text"
+        android:hint="@string/enter_your_cat_tag"/>
+
     <!-- Button Load Image of Cat from Gallery -->
     <Button
         android:id="@+id/btnCreateCat"

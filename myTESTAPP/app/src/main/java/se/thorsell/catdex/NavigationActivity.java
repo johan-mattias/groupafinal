@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import se.thorsell.catdex.R;
-
 public abstract class NavigationActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView navigationView;
@@ -45,7 +43,7 @@ public abstract class NavigationActivity extends AppCompatActivity implements Bo
             } else if (itemId == R.id.navigation_dashboard) {
                 startActivity(new Intent(this, ScrollingActivity.class));
             } else if (itemId == R.id.navigation_notifications) {
-                startActivity(new Intent(this, SecondActivity.class));
+                startActivity(new Intent(this, CatImagesActivity.class));
             }
             finish();
         }, 300);
