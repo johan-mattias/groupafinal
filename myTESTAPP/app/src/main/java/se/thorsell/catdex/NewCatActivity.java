@@ -35,8 +35,10 @@ public class NewCatActivity extends Activity {
     private EditText inputName;
     private String imageString = "image_bytes";
 
+    private EditText inputTag;
+
     // url to create new product
-    private static final String url_create_cat = "http://178.62.50.61/android_connect/create_cat.php";
+    private static final String url_create_cat = "http://178.62.50.61/android_connect/create_cat_and_tag.php";
 
     // variables to load images from gallery
     private static final int RESULT_LOAD_IMG = 1;
@@ -58,6 +60,8 @@ public class NewCatActivity extends Activity {
 
         // Edit Text
         inputName = findViewById(R.id.inputName);
+
+        inputTag = findViewById(R.id.inputTag);
 
         // Create button
         Button btnCreateCat = findViewById(R.id.btnCreateCat);
@@ -101,6 +105,7 @@ public class NewCatActivity extends Activity {
          * */
         protected String doInBackground(String... args) {
             String name = inputName.getText().toString();
+            String tag = inputTag.getText().toString();
 
             // This try-catch section a modification of: https://stackoverflow.com/a/42780501
             try {
@@ -119,6 +124,7 @@ public class NewCatActivity extends Activity {
                 JSONObject jsonParam = new JSONObject();
                 jsonParam.put("name", name);
                 jsonParam.put("image", imageString); // This is the encoded image
+                jsonParam.put("tag", tag);
                 Log.i("JSON", jsonParam.toString());
 
                 // Create a data output stream and write jsonParam.

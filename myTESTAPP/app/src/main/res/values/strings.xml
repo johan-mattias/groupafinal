@@ -124,4 +124,5 @@
     <string name="load_image">Load Image</string>
     <string name="desc">desc</string>
     <string name="View_a_cat">View a cat</string>
+    <string name="enter_your_cat_tag">Enter your cat tag</string>
 </resources>
