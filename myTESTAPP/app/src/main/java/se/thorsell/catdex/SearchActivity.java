@@ -42,7 +42,6 @@ public class SearchActivity extends AppCompatActivity {
     // for the grid view
     ArrayList<Cat> catArray = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,12 +94,16 @@ public class SearchActivity extends AppCompatActivity {
 
                         try {
                             jsonArray = new JSONArray(ResultHolder);
-
                             JSONObject jsonObject;
+                            String tag;
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
-                                listStringTag.add(jsonObject.getString("tag"));
+                                tag = jsonObject.getString("tag");
+                                // If the tag isn't in the list of tags, add it.
+                                if (!listStringTag.contains(tag)) {
+                                    listStringTag.add(tag);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
