@@ -43,6 +43,9 @@ public class NewCatActivity extends Activity {
     // variables to load images from gallery
     private static final int RESULT_LOAD_IMG = 1;
 
+    // Temp image
+    private ImageView tmpImage;
+
     // Takes a bitmap, compresses it to a png with quality setting "100" and returns a Base64encode.
     private String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -60,8 +63,11 @@ public class NewCatActivity extends Activity {
 
         // Edit Text
         inputName = findViewById(R.id.inputName);
-
         inputTag = findViewById(R.id.inputTag);
+
+        // Set temp image
+        tmpImage = findViewById(R.id.imgView);
+        tmpImage.setImageResource(R.drawable.noimageselected);
 
         // Create button
         Button btnCreateCat = findViewById(R.id.btnCreateCat);
@@ -180,6 +186,8 @@ public class NewCatActivity extends Activity {
                 Log.d("NewCat image", "Selected image to string: " + selectedImage.toString());
 
                 // Display the chosen image in the app.
+
+                tmpImage = null;
                 ImageView imgView = findViewById(R.id.imgView);
                 imgView.setImageURI(selectedImage);
 
