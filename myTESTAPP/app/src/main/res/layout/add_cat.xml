@@ -58,7 +58,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/create_cat"
         android:theme="@style/AppTheme.Button"
-        android:elevation="4dp"
+        android:elevation="8dp"
         android:stateListAnimator="@null"
         app:layout_constraintBottom_toTopOf="@+id/imgView"
         app:layout_constraintEnd_toEndOf="parent"
