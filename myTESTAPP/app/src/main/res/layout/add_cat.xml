@@ -1,63 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/paws"
     android:orientation="vertical"
     tools:ignore="ExtraText">
 
-    <!-- Name Label -->
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cat_name"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="10dip"
-        android:textSize="17sp"/>
-
     <!-- Input Name -->
-    <EditText android:id="@+id/inputName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/inputName"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_margin="5dip"
-        android:layout_marginBottom="15dip"
-        android:singleLine="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#ffffff"
+        android:hint="@string/edit_message"
         android:inputType="text"
-        android:hint="@string/edit_message"/>
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/inputTag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <!-- Input Tag -->
-    <EditText android:id="@+id/inputTag"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/inputTag"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_margin="5dip"
-        android:layout_marginBottom="15dip"
-        android:singleLine="true"
+        android:layout_marginBottom="71dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+        android:hint="@string/enter_your_cat_tag"
         android:inputType="text"
-        android:hint="@string/enter_your_cat_tag"/>
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnLoadImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputName" />
 
-    <!-- Button Load Image of Cat from Gallery -->
+    <!-- Button to create the cat. -->
     <Button
         android:id="@+id/btnCreateCat"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/create_cat" />
+        android:layout_width="121dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/create_cat"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBottom_toTopOf="@+id/imgView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoadImage" />
 
+    <!-- Button to load a cat image -->
     <Button
         android:id="@+id/btnLoadImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="121dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:onClick="loadImageFromGallery"
-        android:text="@string/load_image" />
+        android:text="@string/load_image"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateCat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputTag" />
 
     <ImageView
         android:id="@+id/imgView"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/desc"/>
+        android:layout_width="185dp"
+        android:layout_height="171dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateCat" />
 
 
     <!-- Button Create Cat -->
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

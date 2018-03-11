@@ -1,29 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	      android:layout_width="fill_parent"
-	      android:layout_height="fill_parent"
-	      android:orientation="vertical"
-	      android:gravity="center_horizontal">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/paws"
+	android:gravity="center_horizontal"
+	android:orientation="vertical">
 
-  <!-- Sample Dashboard screen with Two buttons -->
-  <!-- Button to view all cats screen -->
-  <Button android:id="@+id/btnViewCats"
-	 android:layout_width="fill_parent"
-	 android:layout_height="wrap_content"
-	 android:text="@string/view_cats"
-	 android:layout_marginTop="25dip"/>
+	<!-- Button to view all cats screen -->
+	<Button
+		android:id="@+id/btnViewCats"
+		android:layout_width="175dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:layout_marginTop="16dp"
+		android:text="@string/view_cats"
+		android:theme="@style/AppTheme.Button"
+		app:layout_constraintBottom_toTopOf="@+id/btnCreateCat"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/btnViewACat" />
 
-  <!-- Button to create a new cat screen -->
-  <Button android:id="@+id/btnCreateCat"
-	  android:layout_width="fill_parent"
-	  android:layout_height="wrap_content"
-	  android:text="@string/add_new_cat"
-	  android:layout_marginTop="25dip"/>
+	<!-- Button to create a new cat screen -->
+	<Button
+		android:id="@+id/btnCreateCat"
+		android:layout_width="175dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="75dp"
+		android:layout_marginTop="16dp"
+		android:text="@string/add_new_cat"
+		android:theme="@style/AppTheme.Button"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/btnViewCats" />
 
 	<!-- Button to view a cat screen -->
-	<Button android:id="@+id/btnViewACat"
-		android:layout_width="fill_parent"
+	<Button
+		android:id="@+id/btnViewACat"
+		android:layout_width="175dp"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:layout_marginTop="150dp"
 		android:text="@string/View_a_cat"
-		android:layout_marginTop="25dip"/>
-</LinearLayout>
+		android:theme="@style/AppTheme.Button"
+		app:layout_constraintBottom_toTopOf="@+id/btnViewCats"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+	<!-- Title text -->
+	<TextView
+		android:id="@+id/textView"
+		android:layout_width="327dp"
+		android:layout_height="111dp"
+		android:layout_marginBottom="50dp"
+		android:layout_marginTop="89dp"
+		android:text="@string/title"
+		android:textAlignment="center"
+		android:textColor="@color/colorAccent"
+		android:textSize="90sp"
+		app:layout_constraintBottom_toTopOf="@+id/btnViewACat"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="@string/title" />
+
+</android.support.constraint.ConstraintLayout>

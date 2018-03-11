@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 /**
  * Created by Henrik on 10/03/2018.
+ * To hold cat images and names for the grid view.
  */
 
 
@@ -18,10 +19,6 @@ public class Cat {
 
     public String getName() {
         return name;
-    }
-
-    public int giveName() {
-        return 1;
     }
 
     public Bitmap getImage() {
