@@ -25,7 +25,7 @@ $data['tag'] = mysqli_real_escape_string($conn, $data['tag']);
 // TODO This is probably not safe for multiple parallel connections.
 $sqlMulti = "INSERT IGNORE INTO tags (tag) VALUES ('".$data['tag']."'); ";
 $sqlMulti.= "INSERT INTO cats (name, image) VALUES ('".$data['name']."', '".$data['image']."'); ";
-$sqlMulti.= "INSERT INTO catsTagsMap (cat_id, tag_id) SELECT MAX(cats.id), MAX(tags.id) FROM cats, tags; ";
+$sqlMulti.= "INSERT INTO catsTagsMap (cat_id, tag_id) SELECT MAX(cats.id), tags.id FROM cats, tags WHERE tags.tag = '".$data['tag']."' GROUP BY id; ";
 
 // Run all three statements.
 if(!$conn->multi_query($sqlMulti)){
