@@ -111,7 +111,9 @@ public class CatImagesActivity extends ListActivity{
             catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.d("Data from php: ", data);
+            if (Debug.LOG) {
+                Log.d("Data from php: ", data);
+            }
 
             // TODO Fix the HTTPGetCall function so it doesn't return with [] enclosing the data.
             data = data.replace("[","");
@@ -121,22 +123,30 @@ public class CatImagesActivity extends ListActivity{
             // Convert the raw data to a JSON object.
             try {
                 obj = new JSONObject(data.toString());
-                Log.d("ACatActivity", "Object as string: " + obj.toString());
-                Log.d("ACatActivity", "Cat name: " + obj.getString("name"));
-                Log.d("ACatActivity", "Image string: " + obj.getString("image"));
+                if (Debug.LOG) {
+                    Log.d("ACatActivity", "Object as string: " + obj.toString());
+                    Log.d("ACatActivity", "Cat name: " + obj.getString("name"));
+                    Log.d("ACatActivity", "Image string: " + obj.getString("image"));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.e("JSON_failed", "JSON object creation failed!");
-                Log.e("Malformed string", "Could not parse malformed json: \"" + data + "\"");
+                if (Debug.LOG) {
+                    Log.e("JSON_failed", "JSON object creation failed!");
+                    Log.e("Malformed string", "Could not parse malformed json: \"" + data + "\"");
+                }
             }
-            Log.d("ACatActivity", "JSON object: " + (obj != null ? obj.toString() : null));
+            if (Debug.LOG) {
+                Log.d("ACatActivity", "JSON object: " + (obj != null ? obj.toString() : null));
+            }
 
             String imageString = "";
             try {
                 imageString = obj.getString("image");
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.e("ACatActivity", "JSON object was null");
+                if (Debug.LOG) {
+                    Log.e("ACatActivity", "JSON object was null");
+                }
             }
 
             // Hardcoded car image string.
@@ -145,16 +155,21 @@ public class CatImagesActivity extends ListActivity{
             //imageString = imageStringHC;
 
             // Convert the Base64 image string into a bitmap.
-            Log.d("ACatActivity", "Image string is: " + imageString);
-            Log.d("ACatActivity", "Hardcoded image: " + imageStringHC);
-            Log.d("ACatActivity", "Are they equal? " + (imageString.equals(imageStringHC)));
-            Log.d("ACatActivity", "Are they equal2? " + (imageString == imageStringHC));
+            if (Debug.LOG) {
+                Log.d("ACatActivity", "Image string is: " + imageString);
+                Log.d("ACatActivity", "Hardcoded image: " + imageStringHC);
+                Log.d("ACatActivity", "Are they equal? " + (imageString.equals(imageStringHC)));
+                Log.d("ACatActivity", "Are they equal2? " + (imageString == imageStringHC));
+            }
 
             byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
-            Log.d("ACatActivity", "Byte array is: " + Arrays.toString(decodedString));
+            if (Debug.LOG) {
+                Log.d("ACatActivity", "Byte array is: " + Arrays.toString(decodedString));
+            }
             catImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            Log.d("ACatActivity", "Bitmap is :" + catImage);
-
+            if (Debug.LOG) {
+                Log.d("ACatActivity", "Bitmap is :" + catImage);
+            }
             return null;
         }
 
@@ -162,20 +177,28 @@ public class CatImagesActivity extends ListActivity{
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting the cat
             pDialog.dismiss();
-            Log.d("ACatActivity", "Made it this far!");
+            if (Debug.LOG) {
+                Log.d("ACatActivity", "Made it this far!");
+            }
             runOnUiThread(() -> {
-
+                // TODO Clean this up and extract so it doesn't exist here nd also in ACatActivity.java
                 imgView = findViewById(R.id.imgView);
-                if (imgView != null) {
+                if (imgView != null && Debug.LOG) {
                     Log.d("ACatActivity", "Img view not null!");
                     if (catImage != null) {
-                        Log.d("ACatActivity", "catImage not null!");
+                        if (Debug.LOG) {
+                            Log.d("ACatActivity", "catImage not null!");
+                        }
                         imgView.setImageBitmap(catImage);
                     } else {
-                        Log.e("ACatActivity", "catImage null!");
+                        if (Debug.LOG) {
+                            Log.e("ACatActivity", "catImage null!");
+                        }
                     }
                 } else {
-                    Log.e("ACatActivity", "imgView null!");
+                    if (Debug.LOG) {
+                        Log.e("ACatActivity", "imgView null!");
+                    }
                 }
             });
         }
