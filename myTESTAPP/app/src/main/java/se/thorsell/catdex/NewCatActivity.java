@@ -131,7 +131,9 @@ public class NewCatActivity extends Activity {
                 jsonParam.put("name", name);
                 jsonParam.put("image", imageString); // This is the encoded image
                 jsonParam.put("tag", tag);
-                Log.i("JSON", jsonParam.toString());
+                if (Debug.LOG) {
+                    Log.i("JSON", jsonParam.toString());
+                }
 
                 // Create a data output stream and write jsonParam.
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
@@ -183,7 +185,9 @@ public class NewCatActivity extends Activity {
                 Uri selectedImage = data.getData();
 
                 assert selectedImage != null;
-                Log.d("NewCat image", "Selected image to string: " + selectedImage.toString());
+                if (Debug.LOG) {
+                    Log.d("NewCat image", "Selected image to string: " + selectedImage.toString());
+                }
 
                 // Display the chosen image in the app.
 
@@ -191,9 +195,11 @@ public class NewCatActivity extends Activity {
                 ImageView imgView = findViewById(R.id.imgView);
                 imgView.setImageURI(selectedImage);
 
-                Log.d("NewCat image", "Data to string: " + data.toString());
-                Log.d("NewCat image", "Data get data to string: " + data.getData());
-                Log.d("NewCat image", "Selected image get path to string: " + selectedImage.getPath());
+                if (Debug.LOG) {
+                    Log.d("NewCat image", "Data to string: " + data.toString());
+                    Log.d("NewCat image", "Data get data to string: " + data.getData());
+                    Log.d("NewCat image", "Selected image get path to string: " + selectedImage.getPath());
+                }
 
                 // set bmp as a bitmap of the image that was selected from the gallery.
                 InputStream input;
@@ -204,17 +210,22 @@ public class NewCatActivity extends Activity {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                Log.d("NewCat image", "Bitmap: " + bmp);
+                if (Debug.LOG) {
+                    Log.d("NewCat image", "Bitmap: " + bmp);
+                }
 
                 // Convert that bitmap into a string.
                 imageString = BitMapToString(bmp);
-                if (imageString == null) {
+                if (imageString == null && Debug.LOG) {
                     Log.e("NewCat image", "Image string was null!");
                 } else {
-                    Log.d("NewCat image", "imageString not null!");
+                    if (Debug.LOG) {
+                        Log.d("NewCat image", "imageString not null!");
+                    }
                 }
-
-                Log.d("NewCat image", "Image string: " + imageString);
+                if (Debug.LOG) {
+                    Log.d("NewCat image", "Image string: " + imageString);
+                }
 
             } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();

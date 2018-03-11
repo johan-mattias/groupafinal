@@ -51,7 +51,9 @@ public class SearchActivity extends AppCompatActivity {
         progressBarSubject = findViewById(R.id.progressBar);
         editText = findViewById(R.id.edittext1);
 
-        Log.d("SearchActivity", "In on Create, grid view: " + gridView);
+        if (Debug.LOG) {
+            Log.d("SearchActivity", "In on Create, grid view: " + gridView);
+        }
 
         new GetHttpResponse(SearchActivity.this).execute();
 
@@ -166,10 +168,12 @@ public class SearchActivity extends AppCompatActivity {
                         }
                     }
                     if (catNames.isEmpty()) {
-                        Log.e("Search filter", "CatNames empty");
+                        if (Debug.LOG) {
+                            Log.e("Search filter", "CatNames empty");
+                        }
                     } else {
                         adapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, catNames);
-                        if(adapter.getCount()==0) {
+                        if(adapter.getCount()==0 && Debug.LOG) {
                             Log.e("Search filter", "adapter null");
                         }
                         else {
@@ -188,15 +192,23 @@ public class SearchActivity extends AppCompatActivity {
 
                             CatsAdapter catsAdapter = new CatsAdapter(getApplicationContext(), catArray);
                             if (gridView == null) {
-                                Log.e("SearchActivity", "Grid view is null: " + gridView);
+                                if (Debug.LOG) {
+                                    Log.e("SearchActivity", "Grid view is null: " + gridView);
+                                }
                             } else {
-                                Log.d("SearchActivity", "Grid view isn't null!" + gridView);
+                                if (Debug.LOG) {
+                                    Log.d("SearchActivity", "Grid view isn't null!" + gridView);
+                                }
                             }
 
                             if (catsAdapter == null) {
-                                Log.e("SearchActivity", "cats adapter is null: " + catsAdapter);
+                                if (Debug.LOG) {
+                                    Log.e("SearchActivity", "cats adapter is null: " + catsAdapter);
+                                }
                                 } else {
-                                Log.d("SearchActivity", "cats adapter isn't null!: " + catsAdapter);
+                                if (Debug.LOG) {
+                                    Log.d("SearchActivity", "cats adapter isn't null!: " + catsAdapter);
+                                }
                             }
                             gridView.setAdapter(catsAdapter);
                         }
