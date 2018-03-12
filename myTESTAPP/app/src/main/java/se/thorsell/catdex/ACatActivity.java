@@ -164,9 +164,11 @@ public class ACatActivity extends Activity {
                     if (Debug.LOG) {
                         Log.d("ACatActivity", "Img view not null!");
                     }
-                    if (catImage != null && Debug.LOG) {
-                        Log.d("ACatActivity", "catImage not null!");
-                        imgView.setImageBitmap(catImage);
+                    if (catImage != null) {
+                        if (Debug.LOG) {
+                            Log.d("ACatActivity", "catImage not null!");
+                            imgView.setImageBitmap(catImage);
+                        }
                     } else {
                         if (Debug.LOG) {
                             Log.e("ACatActivity", "catImage null!");

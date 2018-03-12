@@ -33,7 +33,7 @@ public class NewCatActivity extends Activity {
     private ProgressDialog prgDialog;
 
     private EditText inputName;
-    private String imageString = "image_bytes";
+    private String imageString = "image_bytes_placeholder";
 
     private EditText inputTag;
 
