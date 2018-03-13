@@ -27,3 +27,12 @@ http://catdex.thorsell.se/
 
 8. Back in the Select Deployment Target dialog, select the device you just created and click OK.
 
+## RUN APP LIVE
+
+1. Go to https://play.google.com/store/apps/details?id=se.thorsell.testapp
+
+2. Install
+
+3. Run
+
+4. Enjoy!
