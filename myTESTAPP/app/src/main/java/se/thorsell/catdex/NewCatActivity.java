@@ -9,8 +9,12 @@ import java.net.URL;
 
 import org.json.JSONObject;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,7 +23,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
-import android.view.View;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +30,8 @@ import android.os.Bundle;
 import android.net.Uri;
 
 public class NewCatActivity extends Activity {
+
+    private static final int MY_PERMISSIONS_REQUEST_VIEW_GALLERY = 1;
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -45,6 +50,39 @@ public class NewCatActivity extends Activity {
 
     // Temp image
     private ImageView tmpImage;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_VIEW_GALLERY: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                    // Create intent to Open Image applications like Gallery, Google Photos
+                    Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
+                    gallery.setType("image/*");
+
+                    // Start the Intent
+                    startActivityForResult(gallery, RESULT_LOAD_IMG);
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(this, "Please provide Gallery permission!", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
 
     // Takes a bitmap, compresses it to a png with quality setting "100" and returns a Base64encode.
     private String BitMapToString(Bitmap bitmap){
@@ -72,20 +110,59 @@ public class NewCatActivity extends Activity {
         // Create button
         Button btnCreateCat = findViewById(R.id.btnCreateCat);
 
+        Button btnLoadImage = findViewById(R.id.btnLoadImage);
+
         // button click event
         btnCreateCat.setOnClickListener(view -> {
-            // creating new product in background thread
+            // creating new cat in background thread
             new CreateNewCat().execute();
+        });
+
+        btnLoadImage.setOnClickListener(view -> {
+            // loading image
+            loadImageFromGallery();
         });
     }
 
-    public void loadImageFromGallery(@SuppressWarnings("unused") View view) {
-        // Create intent to Open Image applications like Gallery, Google Photos
-        Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
-        gallery.setType("image/*");
+    public void loadImageFromGallery() {
 
-        // Start the Intent
-        startActivityForResult(gallery, RESULT_LOAD_IMG);
+        // Check if we have the correct permissions.
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_VIEW_GALLERY);
+
+            } else {
+
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_VIEW_GALLERY);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+
+            // Create intent to Open Image applications like Gallery, Google Photos
+            Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
+            gallery.setType("image/*");
+
+            // Start the Intent
+            startActivityForResult(gallery, RESULT_LOAD_IMG);
+        }
     }
 
     /**

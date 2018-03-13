@@ -3,9 +3,20 @@ package se.thorsell.catdex;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+
+    public static final String TAG = "MainActivity";
+
+    // Id to identify a camera permissions request.
+    private static final int REQUEST_CAMERA = 0;
+
+    // Whether the log fragment is currently shown.
+    private boolean mLogShown;
+
+    private View mLayout;
 
     private Button btnViewCats;
     private Button btnNewCat;

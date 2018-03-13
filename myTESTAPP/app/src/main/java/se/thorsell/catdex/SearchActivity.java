@@ -105,6 +105,9 @@ public class SearchActivity extends AppCompatActivity {
                                 // If the tag isn't in the list of tags, add it.
                                 if (!listStringTag.contains(tag)) {
                                     listStringTag.add(tag);
+                                    if (Debug.LOG) {
+                                        Log.d("SearchActivity", "Added tag: " + tag);
+                                    }
                                 }
                             }
                         } catch (JSONException e) {

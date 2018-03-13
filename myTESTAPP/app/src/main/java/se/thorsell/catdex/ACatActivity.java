@@ -68,7 +68,7 @@ public class ACatActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_cat);;
+        setContentView(R.layout.a_cat);
 
         // Loading products in background thread
         new LoadACat().execute();
@@ -138,13 +138,25 @@ public class ACatActivity extends Activity {
         if (Debug.LOG) {
             Log.d("ACatActivity", "Image string is: " + imageString);
         }
-        byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
+        byte[] decodedString = null;
+        try {
+            decodedString = Base64.decode(imageString, Base64.DEFAULT);
+        } catch (IllegalArgumentException e) {
+            if (Debug.LOG) {
+                e.printStackTrace();
+                Log.e("ACatActivity", "Illegal argument exception: " + imageString);
+            }
+        }
         if (Debug.LOG) {
             Log.d("ACatActivity", "Byte array is: " + Arrays.toString(decodedString));
         }
-        catImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        if (Debug.LOG) {
-            Log.d("ACatActivity", "Bitmap is :" + catImage);
+        if (decodedString != null) {
+            catImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            if (Debug.LOG) {
+                Log.d("ACatActivity", "Bitmap is :" + catImage);
+            }
+        } else {
+            catImage = null;
         }
         return null;
         }
